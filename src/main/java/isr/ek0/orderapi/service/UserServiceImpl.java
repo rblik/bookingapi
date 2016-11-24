@@ -1,7 +1,8 @@
 package isr.ek0.orderapi.service;
 
+import isr.ek0.orderapi.model.Restaurant;
 import isr.ek0.orderapi.model.User;
-import isr.ek0.orderapi.repo.CrudUserRepository;
+import isr.ek0.orderapi.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,11 +10,16 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private CrudUserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public User get(String email) {
         //// TODO: 24.11.2016 @NotNull and other checking
-        return userRepository.findOne(email);
+        return userRepository.get(email);
+    }
+
+    @Override
+    public void addRestaurant(String loggedUserEmail, Restaurant restaurant) {
+        userRepository.addRestaurant(loggedUserEmail, restaurant);
     }
 }
