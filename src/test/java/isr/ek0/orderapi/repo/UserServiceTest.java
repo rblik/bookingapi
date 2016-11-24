@@ -1,8 +1,8 @@
-package isr.ek0.voter.repo;
+package isr.ek0.orderapi.repo;
 
-import isr.ek0.voter.Application;
-import isr.ek0.voter.model.User;
-import isr.ek0.voter.service.UserService;
+import isr.ek0.orderapi.Application;
+import isr.ek0.orderapi.model.User;
+import isr.ek0.orderapi.service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +11,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static isr.ek0.voter.util.UsersUtil.ADMIN;
-import static isr.ek0.voter.util.UsersUtil.TEST_USERS;
-import static isr.ek0.voter.util.UsersUtil.USER_1;
+import static isr.ek0.orderapi.util.UsersUtil.ADMIN;
+import static isr.ek0.orderapi.util.UsersUtil.TEST_USERS;
+import static isr.ek0.orderapi.util.UsersUtil.USER_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 

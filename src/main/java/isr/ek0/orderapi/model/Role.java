@@ -1,4 +1,4 @@
-package isr.ek0.voter.model;
+package isr.ek0.orderapi.model;
 
 public enum Role {
     ROLE_USER,

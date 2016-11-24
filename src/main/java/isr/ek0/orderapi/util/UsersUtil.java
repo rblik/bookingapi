@@ -1,11 +1,11 @@
-package isr.ek0.voter.util;
+package isr.ek0.orderapi.util;
 
-import isr.ek0.voter.model.User;
+import isr.ek0.orderapi.model.User;
 
 import java.util.List;
 
-import static isr.ek0.voter.model.Role.ROLE_ADMIN;
-import static isr.ek0.voter.model.Role.ROLE_USER;
+import static isr.ek0.orderapi.model.Role.ROLE_ADMIN;
+import static isr.ek0.orderapi.model.Role.ROLE_USER;
 import static java.util.Arrays.asList;
 
 public class UsersUtil {

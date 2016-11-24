@@ -1,4 +1,4 @@
-package isr.ek0.voter;
+package isr.ek0.orderapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
