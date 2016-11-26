@@ -18,6 +18,7 @@
     </appender>
 
     <logger name="org.springframework.data.mongodb" level="debug" />
+    <logger name="isr.ek0.orderapi.service.BaseServiceTest" level="debug"/>
     <root level="info">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>

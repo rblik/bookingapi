@@ -1,49 +1,36 @@
 package isr.ek0.orderapi.service;
 
-import isr.ek0.orderapi.Application;
-import isr.ek0.orderapi.model.Meal;
-import isr.ek0.orderapi.model.Restaurant;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 import isr.ek0.orderapi.model.User;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 
-import static isr.ek0.orderapi.util.UsersUtil.*;
-import static java.util.Arrays.asList;
+import static isr.ek0.orderapi.util.UsersUtil.ADMIN_1;
+import static isr.ek0.orderapi.util.UsersUtil.USER_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-@RunWith(SpringRunner.class)
-@SpringApplicationConfiguration({Application.class})
-public class UserServiceTest {
-
-    @Autowired
-    UserService service;
-    @Autowired
-    MongoTemplate template;
-
-    @Before
-    public void init() {
-        template.dropCollection("users");
-        template.dropCollection("restaurants");
-        template.insertAll(TEST_USERS);
-    }
+public class UserServiceTest extends BaseServiceTest{
 
     @Test
     public void testGet() {
-        User userFound = service.get(ADMIN.getEmail());
-        assertEquals(ADMIN, userFound);
+        User userFound = userService.get(ADMIN_1.getEmail());
+        assertEquals(ADMIN_1, userFound);
         assertNotEquals(USER_1, userFound);
     }
 
     @Test
-    public void testSaveRestaurant() {
-        Restaurant restaurant = new Restaurant("My Restaurant", new GeoJsonPoint(10, -40), asList(new Meal("Porridge", 30, 10)));
-        service.addRestaurant(ADMIN.getEmail(), restaurant);
+    public void testQueryPlan() {
+        Query query = new Query(Criteria.where("_id").is(ADMIN_1.getEmail())).with(new Sort(Sort.Direction.ASC, "_id"));
+        DBCollection collection = template.getCollection("users");
+        DBCursor cursor = collection.find(query.getQueryObject());
+        LOGGER.debug(cursor.explain().toString());
+        DBObject queryPlanner = (DBObject)cursor.explain().get("queryPlanner");
+        DBObject winningPlan = (DBObject)queryPlanner.get("winningPlan");
+        assertEquals("IDHACK", winningPlan.get("stage"));
     }
 }
