@@ -2,6 +2,7 @@ package isr.ek0.orderapi.repo;
 
 import isr.ek0.orderapi.model.Order;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface OrderRepository {
@@ -10,5 +11,5 @@ public interface OrderRepository {
 
     List<Order> getAll(String loggedUserEmail);
 
-    List<Order> getAllByRestaurantName(String loggedUserEmail, String restaurantName);
+    List<Order> getAllByRestaurantName(String loggedUserEmail, String restaurantName, LocalDateTime from, LocalDateTime to);
 }
