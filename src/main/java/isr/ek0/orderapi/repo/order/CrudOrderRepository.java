@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CrudOrderRepository extends MongoRepository<Order, ObjectId> {
 
-    @Query("{'userEmail':'?0'}")
+    @Query("{'_id.userEmail':'?0'}")
     List<Order> findAllByUserEmail(String userEmail);
 }

@@ -24,7 +24,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public void save(String loggedUserEmail, Order order) {
-        order.setUserEmail(loggedUserEmail);
+        order.getOrderId().setUserEmail(loggedUserEmail);
         template.save(order, "orders");
     }
 
@@ -38,6 +38,6 @@ public class OrderRepositoryImpl implements OrderRepository {
         Restaurant restaurant = template.findOne(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))), Restaurant.class);
         return restaurant == null ? null : template.find(new Query(where("restaurantName").is(restaurantName)
-                .andOperator(where("date").is(today))), Order.class);
+                .andOperator(where("_id.date").is(today))), Order.class);
     }
 }
