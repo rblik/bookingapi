@@ -5,11 +5,9 @@ import isr.ek0.orderapi.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static java.time.LocalDateTime.now;
-import static java.time.temporal.ChronoUnit.DAYS;
+import static java.time.LocalDate.now;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -29,8 +27,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllByRestaurantName(String loggedUserEmail, String restaurantName) {
-        LocalDateTime today = now().truncatedTo(DAYS);
-        LocalDateTime tomorrow = today.plusDays(1);
-        return orderRepository.getAllByRestaurantName(loggedUserEmail, restaurantName, today, tomorrow);
+        return orderRepository.getAllByRestaurantName(loggedUserEmail, restaurantName, now());
     }
 }

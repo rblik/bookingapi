@@ -5,19 +5,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Document(collection = "orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-    private LocalDateTime dateTime;
+    private LocalDate date;
     private String userEmail;
+    private LocalTime time;
     private String restaurantName;
 
-    public Order(LocalDateTime dateTime, String restaurantName) {
-        this.dateTime = dateTime;
+    public Order(LocalDate date, LocalTime time, String restaurantName) {
+        this.date = date;
+        this.time = time;
         this.restaurantName = restaurantName;
     }
 }

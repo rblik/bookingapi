@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
@@ -34,10 +34,10 @@ public class OrderRepositoryImpl implements OrderRepository {
     }
 
     @Override
-    public List<Order> getAllByRestaurantName(String loggedUserEmail, String restaurantName, LocalDateTime from, LocalDateTime to) {
+    public List<Order> getAllByRestaurantName(String loggedUserEmail, String restaurantName, LocalDate today) {
         Restaurant restaurant = template.findOne(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))), Restaurant.class);
         return restaurant == null ? null : template.find(new Query(where("restaurantName").is(restaurantName)
-                .andOperator(where("dateTime").gte(from), where("dateTime").lt(to))), Order.class);
+                .andOperator(where("date").is(today))), Order.class);
     }
 }

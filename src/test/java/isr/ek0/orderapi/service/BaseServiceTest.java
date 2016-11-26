@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.data.mongodb.core.index.Index;
@@ -17,6 +16,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static isr.ek0.orderapi.util.OrderUtil.ORDERS;
 import static isr.ek0.orderapi.util.RestaurantUtil.RESTAURANTS;
 import static isr.ek0.orderapi.util.UsersUtil.USERS;
+import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 
 @RunWith(SpringRunner.class)
@@ -43,6 +43,6 @@ public abstract class BaseServiceTest {
         template.insertAll(ORDERS);
 //        recreate index after drop
         template.indexOps(Restaurant.class).ensureIndex(new GeospatialIndex("location").typed(GEO_2DSPHERE));
-        template.indexOps(Restaurant.class).ensureIndex(new Index("ownerEmail", Sort.Direction.ASC));
+        template.indexOps(Restaurant.class).ensureIndex(new Index("ownerEmail", ASC));
     }
 }
