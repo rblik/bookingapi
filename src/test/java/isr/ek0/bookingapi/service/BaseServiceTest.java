@@ -13,9 +13,9 @@ import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.data.mongodb.core.index.Index;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static isr.ek0.bookingapi.util.BookingUtil.BOOKINGS;
-import static isr.ek0.bookingapi.util.RestaurantUtil.RESTAURANTS;
-import static isr.ek0.bookingapi.util.UsersUtil.USERS;
+import static isr.ek0.bookingapi.service.testutils.BookingUtil.BOOKINGS;
+import static isr.ek0.bookingapi.service.testutils.RestaurantUtil.RESTAURANTS;
+import static isr.ek0.bookingapi.service.testutils.UsersUtil.USERS;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 

@@ -1,4 +1,4 @@
-package isr.ek0.bookingapi.util;
+package isr.ek0.bookingapi.service.testutils;
 
 import isr.ek0.bookingapi.model.User;
 
