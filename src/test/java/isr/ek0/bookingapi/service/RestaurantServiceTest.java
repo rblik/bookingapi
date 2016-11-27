@@ -11,8 +11,8 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import java.util.List;
 
-import static isr.ek0.bookingapi.service.testutils.RestaurantUtil.*;
-import static isr.ek0.bookingapi.service.testutils.UsersUtil.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
+import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
 import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsInAnyOrder;

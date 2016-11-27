@@ -4,10 +4,10 @@ import isr.ek0.bookingapi.model.Booking;
 import org.junit.Test;
 import java.util.List;
 
-import static isr.ek0.bookingapi.service.testutils.BookingUtil.NEW_BOOKING;
-import static isr.ek0.bookingapi.service.testutils.RestaurantUtil.ADMIN1_RESTAURANT1;
-import static isr.ek0.bookingapi.service.testutils.UsersUtil.ADMIN_1;
-import static isr.ek0.bookingapi.service.testutils.UsersUtil.USER_1;
+import static isr.ek0.bookingapi.testutils.BookingUtil.NEW_BOOKING;
+import static isr.ek0.bookingapi.testutils.RestaurantUtil.ADMIN1_RESTAURANT1;
+import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.UsersUtil.USER_1;
 
 public class BookingServiceTest extends BaseServiceTest{
 

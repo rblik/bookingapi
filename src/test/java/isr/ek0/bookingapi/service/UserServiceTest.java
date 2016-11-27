@@ -9,8 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import static isr.ek0.bookingapi.service.testutils.UsersUtil.ADMIN_1;
-import static isr.ek0.bookingapi.service.testutils.UsersUtil.USER_1;
+import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.UsersUtil.USER_1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
