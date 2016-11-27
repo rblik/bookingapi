@@ -24,6 +24,11 @@ public class UserServiceTest extends BaseServiceTest{
     }
 
     @Test
+    public void testSave() {
+        userService.save(USER_1);
+    }
+
+    @Test
     public void testQueryPlan() {
         Query query = new Query(Criteria.where("_id").is(ADMIN_1.getEmail())).with(new Sort(Sort.Direction.ASC, "_id"));
         DBCollection collection = template.getCollection("users");

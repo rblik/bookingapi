@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService {
         //// TODO: 24.11.2016 @NotNull and other checking
         return userRepository.get(email);
     }
+
+    @Override
+    public void save(User user) {
+        userRepository.save(user);
+    }
 }

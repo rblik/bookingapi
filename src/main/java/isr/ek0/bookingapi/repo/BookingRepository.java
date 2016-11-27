@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BookingRepository {
 
-    void save(String loggedUserEmail, Booking booking);
+    Booking save(String loggedUserEmail, Booking booking);
 
     List<Booking> getAll(String loggedUserEmail);
 

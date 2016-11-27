@@ -20,7 +20,12 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void save(String loggedUserEmail, Restaurant restaurant) {
-        restaurantRepository.save(loggedUserEmail, restaurant);
+        Restaurant save = restaurantRepository.save(loggedUserEmail, restaurant);
+    }
+
+    @Override
+    public Restaurant get(String name) {
+        return restaurantRepository.get(name);
     }
 
     @Override

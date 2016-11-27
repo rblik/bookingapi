@@ -10,6 +10,8 @@ public interface RestaurantService {
 
     void save(String email, Restaurant restaurant);
 
+    Restaurant get(String name);
+
     List<Restaurant> getAll(String sort);
 
     List<Restaurant> getAll();

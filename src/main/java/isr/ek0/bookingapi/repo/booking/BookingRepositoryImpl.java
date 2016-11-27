@@ -23,10 +23,10 @@ public class BookingRepositoryImpl implements BookingRepository {
     private CrudBookingRepository crudRepository;
 
     @Override
-    public void save(String loggedUserEmail, Booking booking) {
+    public Booking save(String loggedUserEmail, Booking booking) {
         booking.getBookingId().setUserEmail(loggedUserEmail);
 //        upsert
-        template.save(booking, "bookings");
+        return crudRepository.save(booking);
     }
 
     @Override

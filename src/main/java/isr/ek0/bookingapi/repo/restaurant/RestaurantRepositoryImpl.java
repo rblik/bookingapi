@@ -1,6 +1,5 @@
 package isr.ek0.bookingapi.repo.restaurant;
 
-import com.mongodb.WriteResult;
 import isr.ek0.bookingapi.model.Meal;
 import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.repo.RestaurantRepository;
@@ -34,9 +33,14 @@ public class RestaurantRepositoryImpl implements RestaurantRepository{
     private MongoTemplate template;
 
     @Override
-    public void save(String loggedUserEmail, Restaurant restaurant) {
+    public Restaurant save(String loggedUserEmail, Restaurant restaurant) {
         restaurant.setOwnerEmail(loggedUserEmail);
-        template.insert(restaurant);
+        return crudRepository.insert(restaurant);
+    }
+
+    @Override
+    public Restaurant get(String name) {
+        return crudRepository.findOne(name);
     }
 
     @Override
@@ -68,24 +72,24 @@ public class RestaurantRepositoryImpl implements RestaurantRepository{
     }
 
     @Override
-    public void saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
-        WriteResult writeResult = template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
+    public int saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
+        return  template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))),
-                new Update().push("menu", meal), Restaurant.class);
-        System.out.println(writeResult.getN());
+                new Update().push("menu", meal), Restaurant.class).getN();
     }
 
     @Override
-    public void saveMeals(String loggedUserEmail, String restaurantName, Meal... meals) {
-        template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
+    public int saveMeals(String loggedUserEmail, String restaurantName, Meal... meals) {
+        return template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))),
-                new Update().pushAll("menu", meals), Restaurant.class);
+                new Update().pushAll("menu", meals), Restaurant.class).getN();
+
     }
 
     @Override
-    public void deleteAllMeals(String loggedUserEmail, String restaurantName) {
-        template.updateMulti(new Query(where("ownerEmail").is(loggedUserEmail)
+    public int deleteAllMeals(String loggedUserEmail, String restaurantName) {
+        return template.updateMulti(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))),
-                new Update().set("menu", emptyList()), Restaurant.class);
+                new Update().set("menu", emptyList()), Restaurant.class).getN();
     }
 }

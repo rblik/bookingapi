@@ -11,10 +11,15 @@ public class UserRepositoryImpl implements UserRepository{
     @Autowired
     private MongoTemplate template;
     @Autowired
-    private CrudUserRepository repository;
+    private CrudUserRepository crudRepository;
 
     @Override
     public User get(String email) {
-        return repository.findOne(email);
+        return crudRepository.findOne(email);
+    }
+
+    @Override
+    public User save(User user) {
+        return crudRepository.insert(user);
     }
 }

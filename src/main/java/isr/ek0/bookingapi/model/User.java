@@ -18,4 +18,10 @@ public class User {
     private String name;
     private String password;
     private List<Role> role;
+
+    public User(String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 }

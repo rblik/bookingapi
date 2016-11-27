@@ -21,8 +21,14 @@ import static org.junit.Assert.assertEquals;
 public class RestaurantServiceTest extends BaseServiceTest{
 
     @Test
-    public void testSaveRestaurant() {
+    public void testSave() {
         restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT);
+    }
+
+    @Test
+    public void testGet() {
+        Restaurant restaurant = restaurantService.get(ADMIN1_RESTAURANT1.getName());
+        System.out.println(restaurant);
     }
 
     @Test
@@ -47,11 +53,6 @@ public class RestaurantServiceTest extends BaseServiceTest{
     public void testGetByOwner() {
         List<Restaurant> allByOwnerEmail = restaurantService.getAllByOwnerEmail("admin@gmail.com");
         assertThat(allByOwnerEmail, containsInAnyOrder(ADMIN1_RESTAURANT1, ADMIN1_RESTAURANT2));
-    }
-
-    @Test
-    public void testGetPagination() {
-        // TODO: 25.11.2016
     }
 
     @Test

@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface RestaurantRepository {
 
-    void save(String loggedUserEmail, Restaurant restaurant);
+    Restaurant save(String loggedUserEmail, Restaurant restaurant);
+
+    Restaurant get(String name);
 
     List<Restaurant> getAll(String sort);
 
@@ -18,9 +20,9 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAllByOwnerEmail(String ownerEmail);
 
-    void saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
+    int saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
-    void saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
+    int saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
 
-    void deleteAllMeals(String loggedUserEmail, String restaurantName);
+    int deleteAllMeals(String loggedUserEmail, String restaurantName);
 }
