@@ -21,7 +21,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void save(@NonNull String loggedUserEmail, Booking booking) {
-        bookingRepository.save(loggedUserEmail, validateBooking(booking));
+        checkNotFound(bookingRepository.save(loggedUserEmail, validateBooking(booking)), booking.getRestaurantName(), Restaurant.class);
     }
 
     @Override

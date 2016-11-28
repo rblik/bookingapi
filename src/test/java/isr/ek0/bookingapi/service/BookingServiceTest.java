@@ -25,6 +25,11 @@ public class BookingServiceTest extends BaseServiceTest {
         assertThat(bookingService.getAll(USER_1.getEmail()), is(BOOKINGS_USER1_WITH_NEW));
     }
 
+    @Test(expected = NotFoundException.class)
+    public void testSaveWithWrongRestaurant() {
+        bookingService.save(USER_1.getEmail(), WRONG_RESTAURANT_NEW_BOOKING);
+    }
+
     @Test
     public void testSaveSameDaySameUser() {
         bookingService.save(USER_1.getEmail(), NEW_BOOKING_SAME_DAY);

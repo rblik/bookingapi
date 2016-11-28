@@ -25,9 +25,10 @@ public class BookingRepositoryImpl implements BookingRepository {
 
     @Override
     public Booking save(String loggedUserEmail, Booking booking) {
+        Restaurant restaurant = template.findOne(new Query(where("_id").is(booking.getRestaurantName())), Restaurant.class);
         booking.getBookingId().setUserEmail(loggedUserEmail);
 //        upsert
-        return crudRepository.save(booking);
+        return restaurant == null ? null : crudRepository.save(booking);
     }
 
     @Override
