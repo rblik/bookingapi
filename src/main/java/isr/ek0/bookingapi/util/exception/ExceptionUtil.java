@@ -1,24 +1,22 @@
 package isr.ek0.bookingapi.util.exception;
 
 import isr.ek0.bookingapi.model.Booking;
+import isr.ek0.bookingapi.model.Restaurant;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
-import static java.time.LocalTime.of;
 import static java.util.stream.Collectors.toList;
-import static org.springframework.util.Assert.notNull;
 
 public class ExceptionUtil {
     public ExceptionUtil() {
     }
 
-    public static Booking validateBooking(Booking booking) {
-        notNull(booking, "booking must not be null");
-        if (booking.getTime().isAfter(of(23, 0)) || booking.getTime().isBefore(of(8, 0))) {
-            throw new WrongBookingException("booking must be for a time from 8AM to 11PM");
+    public static Booking validateBooking(Booking booking, Restaurant restaurant) {
+        if (booking.getTime().isAfter(restaurant.getCloseTime()) || booking.getTime().isBefore(restaurant.getOpenTime())) {
+            throw new WrongBookingException("booking for restaurant " + restaurant.getName() + " must be for a time from " + restaurant.getOpenTime() + " to " + restaurant.getCloseTime());
         }
         LocalDateTime ldt = LocalDateTime.of(booking.getBookingId().getDate(), booking.getTime());
         LocalDateTime earliestDateTime = now().plusHours(2);

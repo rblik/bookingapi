@@ -12,16 +12,21 @@ import java.util.List;
 import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
 import static isr.ek0.bookingapi.util.exception.ExceptionUtil.validateBooking;
 import static java.time.LocalDate.now;
+import static org.springframework.util.Assert.notNull;
 
 @Service
 public class BookingServiceImpl implements BookingService {
 
     @Autowired
     private BookingRepository bookingRepository;
+    @Autowired
+    private RestaurantService restaurantService;
 
     @Override
     public void save(@NonNull String loggedUserEmail, Booking booking) {
-        checkNotFound(bookingRepository.save(loggedUserEmail, validateBooking(booking)), booking.getRestaurantName(), Restaurant.class);
+        notNull(booking, "booking must not be null");
+        Restaurant restaurant = restaurantService.get(booking.getRestaurantName());
+        checkNotFound(bookingRepository.save(loggedUserEmail, validateBooking(booking, restaurant)), booking.getRestaurantName(), Restaurant.class);
     }
 
     @Override
