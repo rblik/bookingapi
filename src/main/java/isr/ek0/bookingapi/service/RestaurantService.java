@@ -29,4 +29,6 @@ public interface RestaurantService {
     void saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
 
     void deleteAllMeals(String loggedUserEmail, String restaurantName);
+
+    void evictCache();
 }

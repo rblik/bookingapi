@@ -35,6 +35,7 @@ public abstract class BaseServiceTest {
 
     @Before
     public void init() {
+        restaurantService.evictCache();
         template.dropCollection("users");
         template.dropCollection("restaurants");
         template.dropCollection("bookings");

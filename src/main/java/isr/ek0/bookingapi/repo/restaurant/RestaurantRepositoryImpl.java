@@ -50,7 +50,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public List<Restaurant> getAll(String sortStr) {
-        Sort sort = "asc".equals(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
+        Sort sort = "asc".equalsIgnoreCase(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
         return crudRepository.findAll(sort);
     }
 
