@@ -26,7 +26,6 @@ public class Restaurant implements Serializable{
     private String name;
     @GeoSpatialIndexed(type = GEO_2DSPHERE)
     private GeoJsonPoint location;
-    // TODO: 28.11.2016 check NotNull in service
     private List<Meal> menu;
     @Indexed
     private String ownerEmail;
