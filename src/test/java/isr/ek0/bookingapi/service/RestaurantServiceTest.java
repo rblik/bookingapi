@@ -56,7 +56,7 @@ public class RestaurantServiceTest extends BaseServiceTest{
 
     @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() {
-        restaurantService.delete(ADMIN_1.getEmail(), ADMIN2_RESTAURANT1.getName());
+        restaurantService.delete(ADMIN_2.getEmail(), ADMIN1_RESTAURANT1.getName());
     }
 
     @Test

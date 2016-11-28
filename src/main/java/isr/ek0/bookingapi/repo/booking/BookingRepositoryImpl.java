@@ -5,6 +5,7 @@ import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.repo.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 
@@ -40,5 +41,10 @@ public class BookingRepositoryImpl implements BookingRepository {
                 .andOperator(where("_id").is(restaurantName))), Restaurant.class);
         return restaurant == null ? null : template.find(new Query(where("restaurantName").is(restaurantName)
                 .andOperator(where("_id.date").is(today))), Booking.class);
+    }
+
+    @Override
+    public List<Booking> deleteAllByRestaurant(String restaurantName) {
+        return template.findAllAndRemove(new Query(Criteria.where("restaurantName").is(restaurantName)), Booking.class);
     }
 }

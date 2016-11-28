@@ -2,6 +2,7 @@ package isr.ek0.bookingapi.service;
 
 import isr.ek0.bookingapi.model.Meal;
 import isr.ek0.bookingapi.model.Restaurant;
+import isr.ek0.bookingapi.repo.BookingRepository;
 import isr.ek0.bookingapi.repo.RestaurantRepository;
 import isr.ek0.bookingapi.to.RestaurantWithDistance;
 import lombok.NonNull;
@@ -23,6 +24,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     private RestaurantRepository restaurantRepository;
+    @Autowired
+    private BookingRepository bookingRepository;
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
@@ -42,6 +45,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void delete(String loggedUserName, String restaurantName) {
         checkNotFound(restaurantRepository.delete(loggedUserName, restaurantName), restaurantName, Restaurant.class);
+        bookingRepository.deleteAllByRestaurant(restaurantName);
     }
 
     @Cacheable("restaurants")
