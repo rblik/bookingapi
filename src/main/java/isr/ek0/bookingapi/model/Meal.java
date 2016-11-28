@@ -5,12 +5,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.io.Serializable;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Meal {
+public class Meal implements Serializable{
     private String description;
     private Integer preparingTime;
-    private Integer price;
+    private Double price;
 }

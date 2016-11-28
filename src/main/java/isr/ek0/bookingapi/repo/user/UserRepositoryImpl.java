@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRepositoryImpl implements UserRepository{
     @Autowired
@@ -21,5 +23,10 @@ public class UserRepositoryImpl implements UserRepository{
     @Override
     public User save(User user) {
         return crudRepository.insert(user);
+    }
+
+    @Override
+    public List<User> getAll(String adminEmail) {
+        return crudRepository.findAll();
     }
 }

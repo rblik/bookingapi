@@ -4,13 +4,17 @@ import isr.ek0.bookingapi.model.Meal;
 import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.repo.RestaurantRepository;
 import isr.ek0.bookingapi.to.RestaurantWithDistance;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.google.common.primitives.Doubles.asList;
-import static java.lang.Double.parseDouble;
+import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
+import static isr.ek0.bookingapi.util.geo.GeoUtil.parseCoordinates;
+import static isr.ek0.bookingapi.util.geo.GeoUtil.parseDistance;
+import static org.springframework.util.Assert.noNullElements;
+import static org.springframework.util.Assert.notNull;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -20,12 +24,19 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public void save(String loggedUserEmail, Restaurant restaurant) {
-        Restaurant save = restaurantRepository.save(loggedUserEmail, restaurant);
+        notNull(restaurant, "restaurant must not be null");
+        restaurant.setOwnerEmail(loggedUserEmail);
+        restaurantRepository.save(loggedUserEmail, restaurant);
     }
 
     @Override
     public Restaurant get(String name) {
-        return restaurantRepository.get(name);
+        return checkNotFound(restaurantRepository.get(name), name, Restaurant.class);
+    }
+
+    @Override
+    public void delete(String loggedUserName, String restaurantName) {
+        checkNotFound(restaurantRepository.delete(loggedUserName, restaurantName), restaurantName, Restaurant.class);
     }
 
     @Override
@@ -40,38 +51,33 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Override
     public List<RestaurantWithDistance> getAllByLocation(List<String> coordinates) {
-        // TODO: 25.11.2016 all needed checks
-        Double latitude = parseDouble(coordinates.get(0));
-        Double longitude = parseDouble(coordinates.get(1));
-        return restaurantRepository.getAllByLocation(asList(latitude, longitude));
+        return getAllByLocationAndDistance(coordinates, "max");
     }
 
     @Override
-    public List<RestaurantWithDistance> getAllByLocationAndDistance(List<String> coordinates, String distanceKmStr) {
-        // TODO: 25.11.2016 all needed checks
-        Double latitude = parseDouble(coordinates.get(0));
-        Double longitude = parseDouble(coordinates.get(1));
-        Double distanceKm = parseDouble(distanceKmStr);
-        return restaurantRepository.getAllByLocationAndDistance(asList(latitude, longitude), distanceKm);
+    public List<RestaurantWithDistance> getAllByLocationAndDistance(List<String> coordinates, String distance) {
+        return restaurantRepository.getAllByLocationAndDistance(parseCoordinates(coordinates), parseDistance(distance));
     }
 
     @Override
-    public List<Restaurant> getAllByOwnerEmail(String ownerEmail) {
+    public List<Restaurant> getAllByOwnerEmail(@NonNull String ownerEmail) {
         return restaurantRepository.getAllByOwnerEmail(ownerEmail);
     }
 
     @Override
-    public void saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
-        restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal);
+    public void saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
+        notNull(meal, "meal must not be null");
+        checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class, true);
     }
 
     @Override
-    public void saveMeals(String loggedUserEmail, String restaurantName, Meal... meals) {
-        restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals);
+    public void saveMeals(@NonNull String loggedUserEmail, String restaurantName, Meal... meals) {
+        noNullElements(meals, "meals must not have null elements");
+        checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class, true);
     }
 
     @Override
-    public void deleteAllMeals(String loggedUserEmail, String restaurantName) {
-        restaurantRepository.deleteAllMeals(loggedUserEmail, restaurantName);
+    public void deleteAllMeals(@NonNull String loggedUserEmail, String restaurantName) {
+        checkNotFound(restaurantRepository.deleteAllMeals(loggedUserEmail, restaurantName), restaurantName, Restaurant.class, true);
     }
 }

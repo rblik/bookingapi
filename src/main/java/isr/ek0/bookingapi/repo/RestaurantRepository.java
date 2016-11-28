@@ -12,9 +12,9 @@ public interface RestaurantRepository {
 
     Restaurant get(String name);
 
-    List<Restaurant> getAll(String sort);
+    Restaurant delete(String loggedUserEmail, String restaurantName);
 
-    List<RestaurantWithDistance> getAllByLocation(List<Double> coordinates);
+    List<Restaurant> getAll(String sort);
 
     List<RestaurantWithDistance> getAllByLocationAndDistance(List<Double> coordinates, Double maxDistance);
 

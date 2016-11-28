@@ -2,6 +2,7 @@ package isr.ek0.bookingapi.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
@@ -9,6 +10,7 @@ import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.Serializable;
 import java.util.List;
 
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
@@ -17,19 +19,17 @@ import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GE
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Restaurant {
+@EqualsAndHashCode(of = "name")
+public class Restaurant implements Serializable{
 
     @Id
     private String name;
     @GeoSpatialIndexed(type = GEO_2DSPHERE)
     private GeoJsonPoint location;
+    // TODO: 28.11.2016 check NotNull in service
     private List<Meal> menu;
     @Indexed
     private String ownerEmail;
-
-//    @DBRef(lazy = true)
-//    @JsonIgnore
-//    private User owner;
 
     public Restaurant(String name, GeoJsonPoint location, List<Meal> menu) {
         this.name = name;

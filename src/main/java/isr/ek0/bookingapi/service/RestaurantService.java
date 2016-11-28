@@ -12,6 +12,8 @@ public interface RestaurantService {
 
     Restaurant get(String name);
 
+    void delete(String loggedUserName, String restaurantName);
+
     List<Restaurant> getAll(String sort);
 
     List<Restaurant> getAll();

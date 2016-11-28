@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static java.lang.Double.MAX_VALUE;
 import static java.util.Collections.emptyList;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -24,7 +23,7 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.newA
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 @Repository
-public class RestaurantRepositoryImpl implements RestaurantRepository{
+public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Autowired
     private CrudRestaurantRepository crudRepository;
@@ -44,14 +43,15 @@ public class RestaurantRepositoryImpl implements RestaurantRepository{
     }
 
     @Override
-    public List<Restaurant> getAll(String sortStr) {
-        Sort sort = "asc".equals(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
-        return crudRepository.findAll(sort);
+    public Restaurant delete(String loggedUserEmail, String restaurantName) {
+        return template.findAndRemove(new Query(where("ownerEmail").is(loggedUserEmail)
+                .andOperator(where("_id").is(restaurantName))), Restaurant.class);
     }
 
     @Override
-    public List<RestaurantWithDistance> getAllByLocation(List<Double> coordinates) {
-        return getAllByLocationAndDistance(coordinates, MAX_VALUE);
+    public List<Restaurant> getAll(String sortStr) {
+        Sort sort = "asc".equals(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
+        return crudRepository.findAll(sort);
     }
 
     @Override
@@ -73,15 +73,15 @@ public class RestaurantRepositoryImpl implements RestaurantRepository{
 
     @Override
     public int saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
-        return  template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
-                .andOperator(where("_id").is(restaurantName))),
+        return template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
+                        .andOperator(where("_id").is(restaurantName))),
                 new Update().push("menu", meal), Restaurant.class).getN();
     }
 
     @Override
     public int saveMeals(String loggedUserEmail, String restaurantName, Meal... meals) {
         return template.updateFirst(new Query(where("ownerEmail").is(loggedUserEmail)
-                .andOperator(where("_id").is(restaurantName))),
+                        .andOperator(where("_id").is(restaurantName))),
                 new Update().pushAll("menu", meals), Restaurant.class).getN();
 
     }
@@ -89,7 +89,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository{
     @Override
     public int deleteAllMeals(String loggedUserEmail, String restaurantName) {
         return template.updateMulti(new Query(where("ownerEmail").is(loggedUserEmail)
-                .andOperator(where("_id").is(restaurantName))),
+                        .andOperator(where("_id").is(restaurantName))),
                 new Update().set("menu", emptyList()), Restaurant.class).getN();
     }
 }

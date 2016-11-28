@@ -5,6 +5,8 @@ import isr.ek0.bookingapi.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
 import static org.springframework.util.Assert.notNull;
 
@@ -24,5 +26,10 @@ public class UserServiceImpl implements UserService {
     public void save(User user) {
         notNull(user, "user must not be null");
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> getAll(String adminEmail) {
+        return userRepository.getAll(adminEmail);
     }
 }
