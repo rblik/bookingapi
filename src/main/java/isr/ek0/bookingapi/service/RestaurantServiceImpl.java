@@ -81,14 +81,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public void saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
         notNull(meal, "meal must not be null");
-        checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class, true);
+        checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public void saveMeals(@NonNull String loggedUserEmail, String restaurantName, Meal... meals) {
         noNullElements(meals, "meals must not have null elements");
-        checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class, true);
+        checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

@@ -4,16 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 
 @Document(collection = "restaurants")
@@ -24,13 +29,18 @@ import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GE
 public class Restaurant implements Serializable{
 
     @Id
+    @NotEmpty
     private String name;
+    @NotNull
     @GeoSpatialIndexed(type = GEO_2DSPHERE)
     private GeoJsonPoint location;
-    private List<Meal> menu;
+    @Valid
+    private List<Meal> menu = new ArrayList<>();
     @Indexed
     private String ownerEmail;
+    @NotNull
     private LocalTime openTime;
+    @NotNull
     private LocalTime closeTime;
 
     public Restaurant(String name, GeoJsonPoint location, List<Meal> menu, LocalTime openTime, LocalTime closeTime) {
@@ -39,5 +49,10 @@ public class Restaurant implements Serializable{
         this.menu = menu;
         this.openTime = openTime;
         this.closeTime = closeTime;
+    }
+
+    public Restaurant addMeals(Meal... newMeals) {
+        this.getMenu().addAll(asList(newMeals));
+        return this;
     }
 }

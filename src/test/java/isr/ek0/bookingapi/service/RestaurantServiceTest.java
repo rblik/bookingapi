@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.mongodb.core.query.Query;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
@@ -43,9 +44,20 @@ public class RestaurantServiceTest extends BaseServiceTest{
         assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll());
     }
 
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveNotValid() {
+        restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT_NOT_VALID);
+        assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll());
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveWithNotValidMeal() {
+        restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT_NOT_VALID_MEAL);
+    }
+
     @Test(expected = DuplicateKeyException.class)
     public void testSaveWithDuplicateName() {
-        restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT_DUBLICATE);
+        restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT_DUPLICATE);
     }
 
     @Test
@@ -112,6 +124,11 @@ public class RestaurantServiceTest extends BaseServiceTest{
         assertEquals(MEALS_WITH_1_NEW ,restaurantService.get(ADMIN1_RESTAURANT1.getName()).getMenu());
     }
 
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveNotValidMeal() {
+        restaurantService.saveMeal(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), NEW_RESTAURANT_MEAL_3_NOT_VALID);
+    }
+
     @Test(expected = NotFoundException.class)
     public void testSaveMealWithWrongRestaurant() {
         restaurantService.saveMeal(ADMIN_1.getEmail(), ADMIN2_RESTAURANT2.getName(), NEW_MEAL_1);
@@ -121,6 +138,11 @@ public class RestaurantServiceTest extends BaseServiceTest{
     public void testSaveMeals() {
         restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), NEW_MEAL_1, NEW_MEAL_2);
         assertEquals(MEALS_WITH_2_NEW, restaurantService.get(ADMIN1_RESTAURANT1.getName()).getMenu());
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveNotValidMeals() {
+        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), NEW_MEAL_1, NEW_RESTAURANT_MEAL_3_NOT_VALID);
     }
 
     @Test(expected = NotFoundException.class)

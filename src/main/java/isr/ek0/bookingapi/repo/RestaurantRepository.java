@@ -20,9 +20,9 @@ public interface RestaurantRepository {
 
     List<Restaurant> getAllByOwnerEmail(String ownerEmail);
 
-    int saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
+    Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
-    int saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
+    Restaurant saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
 
     int deleteAllMeals(String loggedUserEmail, String restaurantName);
 }
