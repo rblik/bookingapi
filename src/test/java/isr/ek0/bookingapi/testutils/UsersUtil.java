@@ -16,7 +16,7 @@ public class UsersUtil {
     public static final User USER_1 = new User("user@yandex.ru", "User1", "password", singletonList(ROLE_USER));
     public static final User USER_2 = new User("user@fun.com", "User2", "password", singletonList(ROLE_USER));
     public static final User NEW_USER = new User("user@ofice.com", "NewUser", "password");
-//    public static final User NEW_USER_1 = new User("user@ofice.com", "NewUser33", "password");
+    public static final User INVALID_USER = new User(null, null, "password");
 
     public static final List<User> USERS = of(ADMIN_1, ADMIN_2, USER_1, USER_2);
     public static final List<User> USERS_WITH_NEW = of(ADMIN_1, ADMIN_2, USER_1, USER_2, NEW_USER);

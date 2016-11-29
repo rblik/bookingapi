@@ -3,6 +3,7 @@ package isr.ek0.bookingapi.util.exception;
 import isr.ek0.bookingapi.model.Booking;
 import isr.ek0.bookingapi.model.Restaurant;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -15,8 +16,13 @@ public class ExceptionUtil {
     }
 
     public static Booking validateBooking(Booking booking, Restaurant restaurant) {
-        if (booking.getTime().isAfter(restaurant.getCloseTime()) || booking.getTime().isBefore(restaurant.getOpenTime())) {
+        if (booking.getTime() == null || booking.getTime().isAfter(restaurant.getCloseTime())
+                || booking.getTime().isBefore(restaurant.getOpenTime())) {
             throw new WrongBookingException("booking for restaurant " + restaurant.getName() + " must be for a time from " + restaurant.getOpenTime() + " to " + restaurant.getCloseTime());
+        }
+        LocalDate date = booking.getBookingId().getDate();
+        if (date == null) {
+            throw new WrongBookingException("booking date must not be null");
         }
         LocalDateTime ldt = LocalDateTime.of(booking.getBookingId().getDate(), booking.getTime());
         LocalDateTime earliestDateTime = now().plusHours(2);
@@ -40,7 +46,7 @@ public class ExceptionUtil {
     }
 
     public static List<Double> validateCoordinates(List<Double> coordinates) {
-        return coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate"))).collect(toList());
+        return coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
     }
 
     private static boolean checkNotNull(Double coordinate, RuntimeException ex) {

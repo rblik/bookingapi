@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -19,8 +20,11 @@ import static java.util.Collections.singletonList;
 @EqualsAndHashCode(of = "email")
 public class User {
     @Id
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String password;
     private List<Role> role = singletonList(ROLE_USER);
 

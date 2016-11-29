@@ -11,10 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import javax.validation.ConstraintViolationException;
+
 import static isr.ek0.bookingapi.testutils.UsersUtil.*;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class UserServiceTest extends BaseServiceTest{
 
@@ -39,6 +39,11 @@ public class UserServiceTest extends BaseServiceTest{
     @Test(expected = DuplicateKeyException.class)
     public void testSaveWithDuplicateEmail() {
         userService.save(USER_1);
+    }
+
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveNotValid() {
+        userService.save(INVALID_USER);
     }
 
     @Test

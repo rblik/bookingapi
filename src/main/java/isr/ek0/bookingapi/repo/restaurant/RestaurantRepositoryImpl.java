@@ -39,7 +39,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public Restaurant get(String name) {
-        return crudRepository.findOne(name);
+        return name == null ? null : crudRepository.findOne(name);
     }
 
     @Override

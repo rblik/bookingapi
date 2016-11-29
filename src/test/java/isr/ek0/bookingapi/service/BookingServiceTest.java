@@ -46,6 +46,11 @@ public class BookingServiceTest extends BaseServiceTest {
         bookingService.save(USER_1.getEmail(), WRONG_BOOKING);
     }
 
+    @Test(expected = WrongBookingException.class)
+    public void testSaveInvalidDate() {
+        bookingService.save(USER_1.getEmail(), NULL_DATE_BOOKING);
+    }
+
     @Test
     public void testGetAll() {
         List<Booking> all = bookingService.getAll(USER_1.getEmail());
