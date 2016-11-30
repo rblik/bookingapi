@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     User get(String email);
 
-    void save(User user);
+    User save(User user);
 
     @VisibleForTesting
     List<User> getAll();

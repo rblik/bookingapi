@@ -109,7 +109,7 @@ public class RestaurantServiceTest extends BaseServiceTest{
     @Test
     public void testQueryPlan() {
         Query query = new Query(where("ownerEmail").is(ADMIN_1.getEmail()));
-        DBCollection collection = template.getCollection("restaurants");
+        DBCollection collection = mongoTemplate.getCollection("restaurants");
         DBCursor cursor = collection.find(query.getQueryObject());
         LOGGER.debug(cursor.explain().toString());
         DBObject queryPlanner = (DBObject)cursor.explain().get("queryPlanner");

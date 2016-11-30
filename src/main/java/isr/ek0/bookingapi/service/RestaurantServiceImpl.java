@@ -32,6 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void save(String loggedUserEmail, Restaurant restaurant) {
         notNull(restaurant, "restaurant must not be null");
         restaurant.setOwnerEmail(loggedUserEmail);
+        restaurant.setName(restaurant.getName().toLowerCase().replace(" ", "_"));
         restaurantRepository.save(loggedUserEmail, restaurant);
     }
 

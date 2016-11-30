@@ -54,7 +54,7 @@ public class UserServiceTest extends BaseServiceTest{
     @Test
     public void testQueryPlan() {
         Query query = new Query(Criteria.where("_id").is(ADMIN_1.getEmail())).with(new Sort(Sort.Direction.ASC, "_id"));
-        DBCollection collection = template.getCollection("users");
+        DBCollection collection = mongoTemplate.getCollection("users");
         DBCursor cursor = collection.find(query.getQueryObject());
         LOGGER.debug(cursor.explain().toString());
         DBObject queryPlanner = (DBObject)cursor.explain().get("queryPlanner");

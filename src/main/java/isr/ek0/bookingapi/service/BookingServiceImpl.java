@@ -23,10 +23,10 @@ public class BookingServiceImpl implements BookingService {
     private RestaurantService restaurantService;
 
     @Override
-    public void save(@NonNull String loggedUserEmail, Booking booking) {
+    public Booking save(@NonNull String loggedUserEmail, Booking booking) {
         notNull(booking, "booking must not be null");
         Restaurant restaurant = restaurantService.get(booking.getRestaurantName());
-        checkNotFound(bookingRepository.save(loggedUserEmail, validateBooking(booking, restaurant)), booking.getRestaurantName(), Restaurant.class);
+        return checkNotFound(bookingRepository.save(loggedUserEmail, validateBooking(booking, restaurant)), booking.getRestaurantName(), Restaurant.class);
     }
 
     @Override
