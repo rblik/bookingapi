@@ -11,5 +11,5 @@ public interface UserService {
     void save(User user);
 
     @VisibleForTesting
-    List<User> getAll(String adminEmail);
+    List<User> getAll();
 }

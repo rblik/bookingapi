@@ -26,7 +26,7 @@ public class UserRepositoryImpl implements UserRepository{
     }
 
     @Override
-    public List<User> getAll(String adminEmail) {
+    public List<User> getAll() {
         return crudRepository.findAll();
     }
 }

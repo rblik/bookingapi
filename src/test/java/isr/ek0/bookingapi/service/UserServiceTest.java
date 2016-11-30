@@ -33,7 +33,7 @@ public class UserServiceTest extends BaseServiceTest{
     @Test
     public void testSave() {
         userService.save(NEW_USER);
-        assertArrayEquals(USERS_WITH_NEW.toArray(), userService.getAll(ADMIN_1.getEmail()).toArray());
+        assertArrayEquals(USERS_WITH_NEW.toArray(), userService.getAll().toArray());
     }
 
     @Test(expected = DuplicateKeyException.class)

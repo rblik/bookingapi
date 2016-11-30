@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll(String adminEmail) {
-        return userRepository.getAll(adminEmail);
+    public List<User> getAll() {
+        return userRepository.getAll();
     }
 }

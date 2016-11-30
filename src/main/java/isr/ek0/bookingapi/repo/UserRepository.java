@@ -12,5 +12,5 @@ public interface UserRepository {
     User save(User user);
 
     @VisibleForTesting
-    List<User> getAll(String adminEmail);
+    List<User> getAll();
 }

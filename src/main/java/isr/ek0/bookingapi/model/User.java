@@ -1,6 +1,7 @@
 package isr.ek0.bookingapi.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -12,6 +13,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.WRITE_ONLY;
 import static isr.ek0.bookingapi.model.Role.ROLE_USER;
 import static java.util.Collections.singletonList;
 
@@ -28,6 +30,7 @@ public class User {
     @NotEmpty
     private String name;
     @NotEmpty
+    @JsonProperty(access = WRITE_ONLY)
     private String password;
     @JsonIgnore
     private List<Role> roles = singletonList(ROLE_USER);
