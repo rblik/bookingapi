@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.LocalTime;
 @EqualsAndHashCode(of = "bookingId")
 public class Booking implements Serializable {
     @Id
+    @JsonUnwrapped
     private BookingId bookingId;
     private LocalTime time;
     private String restaurantName;

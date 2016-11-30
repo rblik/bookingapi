@@ -1,9 +1,11 @@
 package isr.ek0.bookingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -21,12 +23,14 @@ import static java.util.Collections.singletonList;
 public class User {
     @Id
     @NotEmpty
+    @Email
     private String email;
     @NotEmpty
     private String name;
     @NotEmpty
     private String password;
-    private List<Role> role = singletonList(ROLE_USER);
+    @JsonIgnore
+    private List<Role> roles = singletonList(ROLE_USER);
 
     public User(String email, String name, String password) {
         this.email = email;

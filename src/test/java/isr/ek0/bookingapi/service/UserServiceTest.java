@@ -46,6 +46,11 @@ public class UserServiceTest extends BaseServiceTest{
         userService.save(INVALID_USER);
     }
 
+    @Test(expected = ConstraintViolationException.class)
+    public void testSaveNotValidEmail() {
+        userService.save(INVALID_EMAIL_USER);
+    }
+
     @Test
     public void testQueryPlan() {
         Query query = new Query(Criteria.where("_id").is(ADMIN_1.getEmail())).with(new Sort(Sort.Direction.ASC, "_id"));
