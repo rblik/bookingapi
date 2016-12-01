@@ -44,7 +44,7 @@ public class BookingRepositoryImpl implements BookingRepository {
     }
 
     @Override
-    public List<Booking> deleteAllByRestaurant(String restaurantName) {
-        return template.findAllAndRemove(new Query(Criteria.where("restaurantName").is(restaurantName)), Booking.class);
+    public void deleteAllByRestaurant(String restaurantName) {
+        template.findAllAndRemove(new Query(Criteria.where("restaurantName").is(restaurantName)), Booking.class);
     }
 }

@@ -46,7 +46,14 @@ public class ExceptionUtil {
     }
 
     public static List<Double> validateCoordinates(List<Double> coordinates) {
-        return coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
+        List<Double> coordinatesValidated = coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
+        if ((Double.compare(-180.0, coordinatesValidated.get(0)) == 1) ||
+                (Double.compare(180.0, coordinatesValidated.get(0)) == -1) ||
+                (Double.compare(-90.0, coordinatesValidated.get(1)) == 1) ||
+                (Double.compare(90.0, coordinatesValidated.get(1)) == -1)) {
+            throw new WrongCoordinatesException("wrong coordinate boundaries, longitude must be in range (-180.0...180.0), latitude (-90.0...90.0)");
+        }
+        return coordinatesValidated;
     }
 
     private static boolean checkNotNull(Double coordinate, RuntimeException ex) {

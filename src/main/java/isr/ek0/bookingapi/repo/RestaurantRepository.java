@@ -22,7 +22,7 @@ public interface RestaurantRepository {
 
     Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
-    Restaurant saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
+    Restaurant saveMeals(String loggedUserEmail, String restaurantName, List<Meal> meals);
 
     int deleteAllMeals(String loggedUserEmail, String restaurantName);
 }

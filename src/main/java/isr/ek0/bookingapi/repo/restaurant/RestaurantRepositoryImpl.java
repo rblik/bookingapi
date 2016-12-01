@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.google.common.collect.ImmutableList.of;
 import static java.util.Collections.emptyList;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -50,7 +51,7 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public List<Restaurant> getAll(String sortStr) {
-        Sort sort = "asc".equalsIgnoreCase(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
+        Sort sort = "desc".equalsIgnoreCase(sortStr) ? new Sort(DESC, "_id") : new Sort(ASC, "_id");
         return crudRepository.findAll(sort);
     }
 
@@ -74,11 +75,11 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
         Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
-        return restaurant == null ? null : crudRepository.save(restaurant.addMeals(meal));
+        return restaurant == null ? null : crudRepository.save(restaurant.addMeals(of(meal)));
     }
 
     @Override
-    public Restaurant saveMeals(String loggedUserEmail, String restaurantName, Meal... meals) {
+    public Restaurant saveMeals(String loggedUserEmail, String restaurantName, List<Meal> meals) {
         Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
         return restaurant == null ? null : crudRepository.save(restaurant.addMeals(meals));
     }

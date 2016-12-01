@@ -22,14 +22,6 @@ public class BookingControllerTest extends BaseControllerTest{
     }
 
     @Test
-    public void testGetByRestaurantsName() {
-        ResponseEntity<Booking[]> bookingsEntity = restTemplate.getForEntity("/bookings/the_table/admin", Booking[].class, emptyMap());
-        LOGGER.debug(bookingsEntity.toString());
-        assertEquals(OK, bookingsEntity.getStatusCode());
-        assertEquals(BOOKINGS, asList(bookingsEntity.getBody()));
-    }
-
-    @Test
     public void testSave() {
         ResponseEntity<Booking> bookingsEntity = restTemplate.postForEntity("/bookings/the_table", NEW_BOOKING, Booking.class, emptyMap());
         LOGGER.debug(bookingsEntity.toString());

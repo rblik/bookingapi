@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
+import static com.google.common.collect.ImmutableList.of;
 import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
 import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
 import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_2;
@@ -136,18 +137,18 @@ public class RestaurantServiceTest extends BaseServiceTest{
 
     @Test
     public void testSaveMeals() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), NEW_MEAL_1, NEW_MEAL_2);
+        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), of(NEW_MEAL_1, NEW_MEAL_2));
         assertEquals(MEALS_WITH_2_NEW, restaurantService.get(ADMIN1_RESTAURANT1.getName()).getMenu());
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testSaveNotValidMeals() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), NEW_MEAL_1, NEW_RESTAURANT_MEAL_3_NOT_VALID);
+        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), of(NEW_MEAL_1, NEW_RESTAURANT_MEAL_3_NOT_VALID));
     }
 
     @Test(expected = NotFoundException.class)
     public void testSaveMealsWithWrongRestaurant() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN2_RESTAURANT2.getName(), NEW_MEAL_1, NEW_MEAL_2);
+        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN2_RESTAURANT2.getName(), of(NEW_MEAL_1, NEW_MEAL_2));
     }
 
     @Test

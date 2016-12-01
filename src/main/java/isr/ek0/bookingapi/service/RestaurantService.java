@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    void save(String email, Restaurant restaurant);
+    Restaurant save(String email, Restaurant restaurant);
 
     Restaurant get(String name);
 
@@ -24,9 +24,9 @@ public interface RestaurantService {
 
     List<Restaurant> getAllByOwnerEmail(String ownerEmail);
 
-    void saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
+    Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
-    void saveMeals(String loggedUserEmail, String restaurantName, Meal... meals);
+    Restaurant saveMeals(String loggedUserEmail, String restaurantName, List<Meal> meals);
 
     void deleteAllMeals(String loggedUserEmail, String restaurantName);
 

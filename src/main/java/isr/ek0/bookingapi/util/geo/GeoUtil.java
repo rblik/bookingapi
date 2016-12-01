@@ -13,7 +13,7 @@ public class GeoUtil {
 
     public static Double parseDistance(String distanceStr) {
         if (distanceStr == null) {
-            return null;
+            return Double.MAX_VALUE;
         }
         Double distance = tryParse(distanceStr);
         return (distance == null || distance < 0.0) ? Double.MAX_VALUE : distance;

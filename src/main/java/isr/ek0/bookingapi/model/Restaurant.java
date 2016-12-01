@@ -18,7 +18,6 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.util.Arrays.asList;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 
 @Document(collection = "restaurants")
@@ -51,8 +50,8 @@ public class Restaurant implements Serializable{
         this.closeTime = closeTime;
     }
 
-    public Restaurant addMeals(Meal... newMeals) {
-        this.getMenu().addAll(asList(newMeals));
+    public Restaurant addMeals(List<Meal> newMeals) {
+        this.getMenu().addAll(newMeals);
         return this;
     }
 }

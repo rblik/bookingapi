@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 import static isr.ek0.bookingapi.AuthorizedUser.logged_user_email;
 
 @RestController
@@ -20,11 +19,6 @@ public class BookingController {
     @GetMapping
     public List<Booking> getAll() {
         return service.getAll(logged_user_email);
-    }
-
-    @GetMapping("/{restaurantName}/admin")
-    public List<Booking> getAllByRestaurantName(@PathVariable String restaurantName) {
-        return service.getAllByRestaurantName(logged_admin_email, restaurantName);
     }
 
     @PostMapping("/{restaurantName}")

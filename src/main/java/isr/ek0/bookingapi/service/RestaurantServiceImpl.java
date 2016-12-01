@@ -29,11 +29,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public void save(String loggedUserEmail, Restaurant restaurant) {
+    public Restaurant save(String loggedUserEmail, Restaurant restaurant) {
         notNull(restaurant, "restaurant must not be null");
         restaurant.setOwnerEmail(loggedUserEmail);
         restaurant.setName(restaurant.getName().toLowerCase().replace(" ", "_"));
-        restaurantRepository.save(loggedUserEmail, restaurant);
+        return restaurantRepository.save(loggedUserEmail, restaurant);
     }
 
     @Cacheable("restaurants")
@@ -80,16 +80,16 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public void saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
+    public Restaurant saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
         notNull(meal, "meal must not be null");
-        checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class);
+        return checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public void saveMeals(@NonNull String loggedUserEmail, String restaurantName, Meal... meals) {
-        noNullElements(meals, "meals must not have null elements");
-        checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class);
+    public Restaurant saveMeals(@NonNull String loggedUserEmail, String restaurantName, List<Meal> meals) {
+        noNullElements(meals.toArray(), "meals must not have null elements");
+        return checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

@@ -3,6 +3,7 @@ package isr.ek0.bookingapi.web.json;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.data.mongodb.core.geo.GeoJsonModule;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.NONE;
@@ -16,7 +17,7 @@ public class JsonUtil {
     public static ObjectMapper getMapper() {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
-        mapper.registerModule(new GeoJsonModule());
+        mapper.registerModule(new GeoJsonModule().addDeserializer(GeoJsonPoint.class, new GeoDeserialiser()));
         mapper.configure(WRITE_DATES_AS_TIMESTAMPS, false);
 
         mapper.setVisibility(ALL, NONE);

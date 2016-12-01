@@ -48,6 +48,7 @@ public class RestaurantUtil {
     public static final Restaurant NEW_RESTAURANT_DUPLICATE = new Restaurant("aizle", new GeoJsonPoint(10, -40), null, ADMIN_1.getEmail(), LocalTime.of(7, 0), LocalTime.of(22, 0));
     public static final List<Restaurant> RESTAURANTS = of(ADMIN1_RESTAURANT1, ADMIN1_RESTAURANT2, ADMIN2_RESTAURANT1, ADMIN2_RESTAURANT2);
     public static final List<Restaurant> RESTAURANTS_SORTED_BY_NAME = of(ADMIN1_RESTAURANT1, ADMIN1_RESTAURANT2, ADMIN2_RESTAURANT1, ADMIN2_RESTAURANT2).stream().sorted((o1, o2) -> o1.getName().compareTo(o2.getName())).collect(toList());
+    public static final List<Restaurant> RESTAURANTS_SORTED_BY_NAME_REVERSED = of(ADMIN1_RESTAURANT1, ADMIN1_RESTAURANT2, ADMIN2_RESTAURANT1, ADMIN2_RESTAURANT2).stream().sorted((o1, o2) -> o2.getName().compareTo(o1.getName())).collect(toList());
     public static final List<Restaurant> RESTAURANTS_SORTED_BY_LOCATION = RESTAURANTS.stream().sorted((o1, o2) -> compare(Math.hypot(o1.getLocation().getX(), o1.getLocation().getY()), Math.hypot(o2.getLocation().getX(), o2.getLocation().getY()))).collect(toList());
     public static final List<Restaurant> RESTAURANTS_SORTED_BY_LOCATION_WITH_DISTANCE = RESTAURANTS_SORTED_BY_LOCATION.subList(0, 3);
     public static final List<Restaurant> ADMIN1_RESTAURANTS = of(ADMIN1_RESTAURANT1, ADMIN1_RESTAURANT2);
