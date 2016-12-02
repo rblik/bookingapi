@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class BookingController {
     }
 
     @PostMapping("/{restaurantName}")
-    public Booking save(@RequestBody Booking booking, @PathVariable String restaurantName) {
+    public Booking save(@Valid @RequestBody Booking booking, @PathVariable String restaurantName) {
         booking.setRestaurantName(restaurantName);
         return service.save(logged_user_email, booking);
     }

@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 
 @RestController
@@ -18,7 +20,7 @@ public class AdminMealController {
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant saveMeal(@RequestBody Meal meal, @PathVariable String restaurantName) {
+    public Restaurant saveMeal(@Valid @RequestBody Meal meal, @PathVariable String restaurantName) {
         return service.saveMeal(logged_admin_email, restaurantName, meal);
     }
 

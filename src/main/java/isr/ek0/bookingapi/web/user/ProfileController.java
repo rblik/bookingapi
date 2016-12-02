@@ -6,6 +6,8 @@ import isr.ek0.bookingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 import static isr.ek0.bookingapi.AuthorizedUser.logged_user_email;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -26,7 +28,7 @@ public class ProfileController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public User register(@RequestBody User user) {
+    public User register(@Valid @RequestBody User user) {
         return service.save(user);
     }
 

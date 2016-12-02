@@ -24,6 +24,8 @@ public class JsonUtil {
         mapper.setVisibility(FIELD, ANY);
         mapper.setSerializationInclusion(NON_EMPTY);
         mapper.configure(INDENT_OUTPUT, true);
+//        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
         return mapper;
     }
 }

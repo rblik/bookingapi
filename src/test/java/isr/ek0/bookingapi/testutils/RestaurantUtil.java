@@ -56,6 +56,7 @@ public class RestaurantUtil {
     public static final List<Restaurant> ADMIN2_RESTAURANTS = of(ADMIN2_RESTAURANT1, ADMIN2_RESTAURANT2);
     public static final Meal NEW_MEAL_1 = new Meal("Salad", 10, 10.0);
     public static final Meal NEW_MEAL_2 = new Meal("Lasagna", 10, 10.0);
+    public static final Meal NEW_MEAL_NOT_VALID = new Meal(null, 10, 10.0);
     public static final List<Meal> MEALS_WITH_1_NEW = of(A_1_R_1_MEAL_1, A_1_R_1_MEAL_2, A_1_R_1_MEAL_3, NEW_MEAL_1);
     public static final List<Meal> MEALS_WITH_2_NEW = of(A_1_R_1_MEAL_1, A_1_R_1_MEAL_2, A_1_R_1_MEAL_3, NEW_MEAL_1, NEW_MEAL_2);
 }
