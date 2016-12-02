@@ -1,9 +1,16 @@
 package isr.ek0.bookingapi.util.exception;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@NoArgsConstructor
+@ToString
 public class ErrorInfo {
-    private final String url;
-    private final String cause;
-    private final String[] details;
+    private String url;
+    @Getter
+    private String cause;
+    private String[] details;
 
     public ErrorInfo(CharSequence url, Throwable ex) {
         this(url, ex.getClass().getSimpleName(), ex.getLocalizedMessage());

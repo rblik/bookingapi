@@ -1,6 +1,8 @@
-package isr.ek0.bookingapi.web;
+package isr.ek0.bookingapi.web.user;
 
 import isr.ek0.bookingapi.model.Restaurant;
+import isr.ek0.bookingapi.util.exception.ErrorInfo;
+import isr.ek0.bookingapi.web.BaseControllerTest;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
@@ -8,8 +10,9 @@ import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
 
-public class RestaurantControllerTest extends BaseControllerTest{
+public class RestaurantControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetAll() {
@@ -32,5 +35,13 @@ public class RestaurantControllerTest extends BaseControllerTest{
         LOGGER.debug(restaurantsEntity.toString());
         assertEquals(OK, restaurantsEntity.getStatusCode());
         assertEquals(ADMIN1_RESTAURANT1, restaurantsEntity.getBody());
+    }
+
+    @Test
+    public void testGetByRestaurantNameNotFound() {
+        ResponseEntity<ErrorInfo> errorEntity = restTemplate.getForEntity("/restaurants/not_existing_restaurant", ErrorInfo.class);
+        LOGGER.debug(errorEntity.toString());
+        assertEquals(UNPROCESSABLE_ENTITY, errorEntity.getStatusCode());
+        assertEquals("NotFoundException", errorEntity.getBody().getCause());
     }
 }
