@@ -14,6 +14,7 @@ import static java.util.Collections.singletonList;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
@@ -34,7 +35,7 @@ public class BookingControllerTest extends BaseControllerTest{
         HttpEntity<String> bookingEntity = new HttpEntity<>(bookingJson, headers);
         ResponseEntity<Booking> responseEntity = restTemplate.exchange("/bookings/the_table", POST, bookingEntity, Booking.class, emptyMap());
         LOGGER.debug(responseEntity.toString());
-        assertEquals(OK, responseEntity.getStatusCode());
+        assertEquals(CREATED, responseEntity.getStatusCode());
         assertEquals(NEW_BOOKING_SAVED, responseEntity.getBody());
     }
 

@@ -5,9 +5,13 @@ import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+
+import java.net.URI;
 
 import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 
@@ -20,8 +24,12 @@ public class AdminMealController {
 
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Restaurant saveMeal(@Valid @RequestBody Meal meal, @PathVariable String restaurantName) {
-        return service.saveMeal(logged_admin_email, restaurantName, meal);
+    public ResponseEntity<Restaurant> saveMeal(@Valid @RequestBody Meal meal, @PathVariable String restaurantName) {
+        Restaurant restaurant = service.saveMeal(logged_admin_email, restaurantName, meal);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/admin/restaurants/{restaurantName}")
+                .buildAndExpand(restaurant.getName()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(restaurant);
     }
 
     @DeleteMapping(params = {"description"})

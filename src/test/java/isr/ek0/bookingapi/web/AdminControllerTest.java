@@ -18,6 +18,7 @@ import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
 
@@ -47,7 +48,7 @@ public class AdminControllerTest extends BaseControllerTest {
         HttpEntity<String> restaurantEntity = new HttpEntity<>(restaurantJson, headers);
         ResponseEntity<Restaurant> responseEntity = restTemplate.exchange("/admin/restaurants", POST, restaurantEntity, Restaurant.class, emptyMap());
         LOGGER.debug(responseEntity.toString());
-        assertEquals(OK, responseEntity.getStatusCode());
+        assertEquals(CREATED, responseEntity.getStatusCode());
         assertEquals(NEW_RESTAURANT, responseEntity.getBody());
     }
 
@@ -69,7 +70,7 @@ public class AdminControllerTest extends BaseControllerTest {
     public void testSaveMeal() {
         ResponseEntity<Restaurant> responseEntity = restTemplate.postForEntity("/admin/restaurants/the_table/meals", NEW_MEAL_1, Restaurant.class, emptyMap());
         LOGGER.debug(responseEntity.toString());
-        assertEquals(OK, responseEntity.getStatusCode());
+        assertEquals(CREATED, responseEntity.getStatusCode());
         assertEquals(MEALS_WITH_1_NEW, responseEntity.getBody().getMenu());
     }
 

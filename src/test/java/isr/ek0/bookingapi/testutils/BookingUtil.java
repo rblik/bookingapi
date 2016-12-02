@@ -19,7 +19,7 @@ public class BookingUtil {
     public static final Booking WRONG_RESTAURANT_NEW_BOOKING = new Booking(LocalDate.of(2016, 12, 8).plusDays(1), LocalTime.of(21, 0), RestaurantUtil.ADMIN1_RESTAURANT1.getName() + "wrong");
     public static final Booking NEW_BOOKING_SAME_DAY = new Booking(LocalDate.of(2016, 12, 8), LocalTime.of(21, 0), RestaurantUtil.ADMIN1_RESTAURANT1.getName());
     public static final Booking LATE_BOOKING = new Booking(LocalDate.of(2016, 12, 8), LocalTime.of(22, 30), RestaurantUtil.ADMIN1_RESTAURANT2.getName());
-    public static final Booking WRONG_BOOKING = new Booking(LocalDate.of(2016, 12, 8), LocalTime.now().plusHours(1), RestaurantUtil.ADMIN1_RESTAURANT1.getName());
+    public static final Booking WRONG_BOOKING = new Booking(LocalDate.now(), LocalTime.now().plusHours(1), RestaurantUtil.ADMIN1_RESTAURANT1.getName());
     public static final Booking NULL_DATE_BOOKING = new Booking(null, LocalTime.of(16, 0), RestaurantUtil.ADMIN1_RESTAURANT1.getName());
     public static final List<Booking> BOOKINGS_USER1_WITH_NEW = of(BOOKING_1, NEW_BOOKING);
 }

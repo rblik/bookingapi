@@ -4,9 +4,13 @@ import isr.ek0.bookingapi.model.User;
 import isr.ek0.bookingapi.service.BookingService;
 import isr.ek0.bookingapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+
+import java.net.URI;
 
 import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 import static isr.ek0.bookingapi.AuthorizedUser.logged_user_email;
@@ -28,8 +32,11 @@ public class ProfileController {
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public User register(@Valid @RequestBody User user) {
-        return service.save(user);
+    public ResponseEntity<User> register(@Valid @RequestBody User user) {
+        User userSaved = service.save(user);
+        URI profileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/profile").build().toUri();
+        return ResponseEntity.created(profileUri).body(userSaved);
     }
 
     @DeleteMapping

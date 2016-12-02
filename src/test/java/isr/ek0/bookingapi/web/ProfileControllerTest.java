@@ -14,6 +14,7 @@ import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
 public class ProfileControllerTest extends BaseControllerTest {
@@ -33,6 +34,7 @@ public class ProfileControllerTest extends BaseControllerTest {
         HttpEntity<String> entity = new HttpEntity<>(userJson, headers);
         ResponseEntity<User> responseEntity = restTemplate.exchange("/profile", POST, entity, User.class, emptyMap());
         LOGGER.info(responseEntity.toString());
+        assertEquals(CREATED, responseEntity.getStatusCode());
         assertEquals(NEW_USER, responseEntity.getBody());
     }
 
