@@ -13,4 +13,6 @@ public interface UserRepository {
 
     @VisibleForTesting
     List<User> getAll();
+
+    void delete(String loggedUserEmail);
 }

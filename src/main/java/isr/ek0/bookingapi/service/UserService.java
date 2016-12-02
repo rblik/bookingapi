@@ -12,4 +12,6 @@ public interface UserService {
 
     @VisibleForTesting
     List<User> getAll();
+
+    void delete(String logged_user_email);
 }

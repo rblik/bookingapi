@@ -42,13 +42,13 @@ public class RestaurantServiceTest extends BaseServiceTest{
     @Test
     public void testSave() {
         restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT);
-        assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll());
+        assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll(null));
     }
 
     @Test(expected = ConstraintViolationException.class)
     public void testSaveNotValid() {
         restaurantService.save(ADMIN_1.getEmail(), NEW_RESTAURANT_NOT_VALID);
-        assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll());
+        assertEquals(RESTAURANTS_WITH_NEW, restaurantService.getAll(null));
     }
 
     @Test(expected = ConstraintViolationException.class)
@@ -74,19 +74,19 @@ public class RestaurantServiceTest extends BaseServiceTest{
 
     @Test
     public void testGetAll() {
-        List<Restaurant> all = restaurantService.getAll();
+        List<Restaurant> all = restaurantService.getAll(null);
         assertEquals(RESTAURANTS_SORTED_BY_NAME, all);
     }
 
     @Test
     public void testAllByLocation() {
-        List<RestaurantWithDistance> allByLocation = restaurantService.getAllByLocation(asList("0", "0"));
+        List<RestaurantWithDistance> allByLocation = restaurantService.getAllByLocationAndDistance(asList("0", "0"), null);
         assertEquals(RESTAURANTS_SORTED_BY_LOCATION, allByLocation);
     }
 
     @Test(expected = WrongCoordinatesException.class)
     public void testAllByLocationWithWrongCoordinates() {
-        restaurantService.getAllByLocation(asList("wrong value", null));
+        restaurantService.getAllByLocationAndDistance(asList("wrong value", null), null);
     }
 
     @Test
@@ -136,19 +136,14 @@ public class RestaurantServiceTest extends BaseServiceTest{
     }
 
     @Test
-    public void testSaveMeals() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), of(NEW_MEAL_1, NEW_MEAL_2));
-        assertEquals(MEALS_WITH_2_NEW, restaurantService.get(ADMIN1_RESTAURANT1.getName()).getMenu());
-    }
-
-    @Test(expected = ConstraintViolationException.class)
-    public void testSaveNotValidMeals() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), of(NEW_MEAL_1, NEW_RESTAURANT_MEAL_3_NOT_VALID));
+    public void testDeleteMealByDescription() {
+        restaurantService.deleteMeal(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), A_1_R_1_MEAL_1.getDescription());
+        assertEquals(of(A_1_R_1_MEAL_2, A_1_R_1_MEAL_3), restaurantService.get(ADMIN1_RESTAURANT1.getName()).getMenu());
     }
 
     @Test(expected = NotFoundException.class)
-    public void testSaveMealsWithWrongRestaurant() {
-        restaurantService.saveMeals(ADMIN_1.getEmail(), ADMIN2_RESTAURANT2.getName(), of(NEW_MEAL_1, NEW_MEAL_2));
+    public void testDeleteMealByDescriptionWithWrongRestaurant() {
+        restaurantService.deleteMeal(ADMIN_1.getEmail(), ADMIN2_RESTAURANT1.getName(), A_2_R_1_MEAL_1.getDescription());
     }
 
     @Test

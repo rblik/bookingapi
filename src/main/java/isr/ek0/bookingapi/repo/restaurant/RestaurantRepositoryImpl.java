@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.google.common.collect.ImmutableList.of;
 import static java.util.Collections.emptyList;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.domain.Sort.Direction.DESC;
@@ -75,18 +74,18 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
     @Override
     public Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
         Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
-        return restaurant == null ? null : crudRepository.save(restaurant.addMeals(of(meal)));
-    }
-
-    @Override
-    public Restaurant saveMeals(String loggedUserEmail, String restaurantName, List<Meal> meals) {
-        Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
-        return restaurant == null ? null : crudRepository.save(restaurant.addMeals(meals));
+        return restaurant == null ? null : crudRepository.save(restaurant.addMeal(meal));
     }
 
     private Restaurant getRestaurantForUpdate(String loggedUserEmail, String restaurantName) {
         return template.findOne(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))), Restaurant.class);
+    }
+
+    @Override
+    public Restaurant deleteMeal(String loggedUserEmail, String restaurantName, String mealDescription) {
+        Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
+        return restaurant == null ? null : crudRepository.save(restaurant.deleteMeal(mealDescription));
     }
 
     @Override

@@ -16,7 +16,6 @@ import java.util.List;
 import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
 import static isr.ek0.bookingapi.util.geo.GeoUtil.parseCoordinates;
 import static isr.ek0.bookingapi.util.geo.GeoUtil.parseDistance;
-import static org.springframework.util.Assert.noNullElements;
 import static org.springframework.util.Assert.notNull;
 
 @Service
@@ -57,18 +56,6 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Cacheable("restaurants")
     @Override
-    public List<Restaurant> getAll() {
-        return getAll("");
-    }
-
-    @Cacheable("restaurants")
-    @Override
-    public List<RestaurantWithDistance> getAllByLocation(List<String> coordinates) {
-        return getAllByLocationAndDistance(coordinates, "max");
-    }
-
-    @Cacheable("restaurants")
-    @Override
     public List<RestaurantWithDistance> getAllByLocationAndDistance(List<String> coordinates, String distance) {
         return restaurantRepository.getAllByLocationAndDistance(parseCoordinates(coordinates), parseDistance(distance));
     }
@@ -87,9 +74,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public Restaurant saveMeals(@NonNull String loggedUserEmail, String restaurantName, List<Meal> meals) {
-        noNullElements(meals.toArray(), "meals must not have null elements");
-        return checkNotFound(restaurantRepository.saveMeals(loggedUserEmail, restaurantName, meals), restaurantName, Restaurant.class);
+    public Restaurant deleteMeal(@NonNull String loggedUserEmail, String restaurantName, String mealDescription) {
+        return checkNotFound(restaurantRepository.deleteMeal(loggedUserEmail, restaurantName, mealDescription), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

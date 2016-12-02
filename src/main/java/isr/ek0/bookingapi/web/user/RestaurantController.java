@@ -1,4 +1,4 @@
-package isr.ek0.bookingapi.web;
+package isr.ek0.bookingapi.web.user;
 
 import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.service.RestaurantService;

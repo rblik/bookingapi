@@ -34,7 +34,7 @@ public class AdminControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetByRestaurantsName() {
-        ResponseEntity<Booking[]> bookingsEntity = restTemplate.getForEntity("/admin/restaurants/the_table/bookings", Booking[].class, emptyMap());
+        ResponseEntity<Booking[]> bookingsEntity = restTemplate.getForEntity("/admin/restaurants/the_table/bookings?date=2016-12-08", Booking[].class, emptyMap());
         LOGGER.debug(bookingsEntity.toString());
         assertEquals(OK, bookingsEntity.getStatusCode());
         assertEquals(BOOKINGS, asList(bookingsEntity.getBody()));
@@ -67,18 +67,16 @@ public class AdminControllerTest extends BaseControllerTest {
 
     @Test
     public void testSaveMeal() {
-        ResponseEntity<Restaurant> responseEntity = restTemplate.postForEntity("/admin/restaurants/the_table/meal", NEW_MEAL_1, Restaurant.class, emptyMap());
+        ResponseEntity<Restaurant> responseEntity = restTemplate.postForEntity("/admin/restaurants/the_table/meals", NEW_MEAL_1, Restaurant.class, emptyMap());
         LOGGER.debug(responseEntity.toString());
         assertEquals(OK, responseEntity.getStatusCode());
         assertEquals(MEALS_WITH_1_NEW, responseEntity.getBody().getMenu());
     }
 
     @Test
-    public void testSaveMeals() {
-        ResponseEntity<Restaurant> responseEntity = restTemplate.postForEntity("/admin/restaurants/the_table/meals", of(NEW_MEAL_1, NEW_MEAL_2), Restaurant.class, emptyMap());
-        LOGGER.debug(responseEntity.toString());
-        assertEquals(OK, responseEntity.getStatusCode());
-        assertEquals((MEALS_WITH_2_NEW), responseEntity.getBody().getMenu());
+    public void testDeleteMeal() {
+        ResponseEntity<Void> entity = restTemplate.exchange("/admin/restaurants/aizle/meals?description=meshed potatoes", DELETE, null, Void.class, emptyMap());
+        assertEquals(OK, entity.getStatusCode());
     }
 
     @Test

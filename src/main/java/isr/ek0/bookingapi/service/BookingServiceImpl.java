@@ -7,6 +7,7 @@ import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
@@ -35,7 +36,17 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllByRestaurantName(@NonNull String loggedUserEmail, String restaurantName) {
-        return checkNotFound(bookingRepository.getAllByRestaurantName(loggedUserEmail, restaurantName, now()), restaurantName, Restaurant.class);
+    public List<Booking> getAllByRestaurantName(@NonNull String loggedUserEmail, String restaurantName, LocalDate date) {
+        return checkNotFound(bookingRepository.getAllByRestaurantName(loggedUserEmail, restaurantName, date == null ? now() : date), restaurantName, Restaurant.class);
+    }
+
+    @Override
+    public void delete(String loggedUserEmail, LocalDate date) {
+        bookingRepository.delete(loggedUserEmail, date);
+    }
+
+    @Override
+    public void deleteAll(String loggedUserEmail) {
+        bookingRepository.deleteAll(loggedUserEmail);
     }
 }

@@ -1,4 +1,4 @@
-package isr.ek0.bookingapi.web.json;
+package isr.ek0.bookingapi.web.webutil;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;

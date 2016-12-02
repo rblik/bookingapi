@@ -5,7 +5,6 @@ import isr.ek0.bookingapi.model.Restaurant;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static java.time.LocalDateTime.now;
@@ -27,7 +26,7 @@ public class ExceptionUtil {
         LocalDateTime ldt = LocalDateTime.of(booking.getBookingId().getDate(), booking.getTime());
         LocalDateTime earliestDateTime = now().plusHours(2);
         if (ldt.isBefore(earliestDateTime)) {
-            throw new WrongBookingException("booking must be for a datetime from " + earliestDateTime.truncatedTo(ChronoUnit.MINUTES));
+            throw new WrongBookingException("booking must be for a datetime 2 hours from now minimum");
         }
         return booking;
     }

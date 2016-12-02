@@ -15,6 +15,7 @@ public class UsersUtil {
     public static final User ADMIN_2 = new User("admin1@gmail.com", "Admin1", "admin", asList(ROLE_USER, ROLE_ADMIN));
     public static final User USER_1 = new User("user@yandex.ru", "User1", "password", singletonList(ROLE_USER));
     public static final User USER_2 = new User("user@fun.com", "User2", "password", singletonList(ROLE_USER));
+    public static final User USER_1_UPDATED = new User("user@yandex.com", "User1_updated", "password", singletonList(ROLE_USER));
     public static final User NEW_USER = new User("user@ofice.com", "NewUser", "password");
     public static final User INVALID_USER = new User(null, null, "password");
     public static final User INVALID_EMAIL_USER = new User("asd", "User", "password");

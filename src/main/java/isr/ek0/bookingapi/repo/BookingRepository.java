@@ -14,4 +14,8 @@ public interface BookingRepository {
     List<Booking> getAllByRestaurantName(String loggedUserEmail, String restaurantName, LocalDate today);
 
     void deleteAllByRestaurant(String restaurantName);
+
+    void delete(String loggedUserEmail, LocalDate date);
+
+    void deleteAll(String loggedUserEmail);
 }

@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     public List<User> getAll() {
         return userRepository.getAll();
     }
+
+    @Override
+    public void delete(String loggedUserEmail) {
+        userRepository.delete(loggedUserEmail);
+    }
 }

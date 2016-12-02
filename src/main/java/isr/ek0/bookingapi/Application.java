@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventL
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import static com.mongodb.WriteConcern.MAJORITY;
-import static isr.ek0.bookingapi.web.json.JsonUtil.getMapper;
+import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
 @SpringBootApplication
 @EnableCaching

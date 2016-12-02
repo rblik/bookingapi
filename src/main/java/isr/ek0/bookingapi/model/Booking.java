@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,6 +12,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
+
 @Document(collection = "bookings")
 @Data
 @NoArgsConstructor
@@ -20,6 +23,7 @@ public class Booking implements Serializable {
     @JsonUnwrapped
     private BookingId bookingId;
     private LocalTime time;
+    @JsonProperty(access = READ_ONLY)
     private String restaurantName;
 
     public Booking(LocalDate date, LocalTime time, String restaurantName) {

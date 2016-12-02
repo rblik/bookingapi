@@ -1,6 +1,7 @@
 package isr.ek0.bookingapi.repo.booking;
 
 import isr.ek0.bookingapi.model.Booking;
+import isr.ek0.bookingapi.model.BookingId;
 import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.repo.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,15 @@ public class BookingRepositoryImpl implements BookingRepository {
     @Override
     public void deleteAllByRestaurant(String restaurantName) {
         template.findAllAndRemove(new Query(Criteria.where("restaurantName").is(restaurantName)), Booking.class);
+    }
+
+    @Override
+    public void delete(String loggedUserEmail, LocalDate date) {
+        template.findAndRemove(new Query(where("_id").is(new BookingId(loggedUserEmail, date))), Booking.class);
+    }
+
+    @Override
+    public void deleteAll(String loggedUserEmail) {
+        template.findAllAndRemove(new Query(where("_id.userEmail").is(loggedUserEmail)), Booking.class);
     }
 }

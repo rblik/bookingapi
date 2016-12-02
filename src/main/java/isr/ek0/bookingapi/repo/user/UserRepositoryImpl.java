@@ -29,4 +29,9 @@ public class UserRepositoryImpl implements UserRepository{
     public List<User> getAll() {
         return crudRepository.findAll();
     }
+
+    @Override
+    public void delete(String loggedUserEmail) {
+        crudRepository.delete(loggedUserEmail);
+    }
 }
