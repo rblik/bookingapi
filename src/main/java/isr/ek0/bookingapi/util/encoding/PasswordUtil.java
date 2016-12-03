@@ -35,7 +35,7 @@ public class PasswordUtil {
 
     public static User prepareToSave(User user) {
         user.setPassword(encode(user.getPassword()));
-        user.setEmail(user.getEmail().toLowerCase());
+        user.setEmail(user.getEmail());
         return user;
     }
 }

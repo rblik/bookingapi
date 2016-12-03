@@ -83,7 +83,7 @@
             <version>${hibernate-validator.version}</version>
         </dependency>
     </dependencies>
-    <profiles>
+    <!--<profiles>
         <profile>
             <id>embedded</id>
             <dependencies>
@@ -95,7 +95,7 @@
                 </dependency>
             </dependencies>
         </profile>
-    </profiles>
+    </profiles>-->
 
     <build>
         <plugins>
