@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventL
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import static com.mongodb.WriteConcern.MAJORITY;
+import static isr.ek0.bookingapi.util.db.Populator.populateDB;
 import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
 @SpringBootApplication
@@ -22,7 +23,8 @@ import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-        // TODO: 30.11.2016 try to populate DB
+        MongoTemplate template = context.getBean(MongoTemplate.class);
+        populateDB(template);
     }
 
     @Autowired
