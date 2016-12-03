@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.web.user;
 
+import isr.ek0.bookingapi.AuthorizedUser;
 import isr.ek0.bookingapi.model.User;
 import isr.ek0.bookingapi.service.BookingService;
 import isr.ek0.bookingapi.service.UserService;
@@ -9,15 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-
 import java.net.URI;
 
-import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
-import static isr.ek0.bookingapi.AuthorizedUser.logged_user_email;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping("/profile")
 public class ProfileController {
 
     @Autowired
@@ -26,12 +23,12 @@ public class ProfileController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping
+    @GetMapping("/profile")
     public User getProfile() {
-        return service.get(logged_admin_email);
+        return service.get(AuthorizedUser.mail());
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/register",consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
         User userSaved = service.save(user);
         URI profileUri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -39,9 +36,9 @@ public class ProfileController {
         return ResponseEntity.created(profileUri).body(userSaved);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/profile")
     public void deleteProfile() {
-        service.delete(logged_user_email);
-        bookingService.deleteAll(logged_user_email);
+        service.delete(AuthorizedUser.mail());
+        bookingService.deleteAll(AuthorizedUser.mail());
     }
 }

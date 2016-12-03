@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.web.user;
 
+import isr.ek0.bookingapi.AuthorizedUser;
 import isr.ek0.bookingapi.model.Booking;
 import isr.ek0.bookingapi.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,6 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
-import static isr.ek0.bookingapi.AuthorizedUser.logged_user_email;
-
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -23,13 +22,13 @@ public class BookingController {
 
     @GetMapping
     public List<Booking> getAll() {
-        return service.getAll(logged_user_email);
+        return service.getAll(AuthorizedUser.mail());
     }
 
     @PostMapping("/{restaurantName}")
     public ResponseEntity<Booking> save(@Valid @RequestBody Booking booking, @PathVariable String restaurantName) {
         booking.setRestaurantName(restaurantName);
-        Booking bookingSaved = service.save(logged_user_email, booking);
+        Booking bookingSaved = service.save(AuthorizedUser.mail(), booking);
         URI uriOfBookings = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/bookings").build().toUri();
         return ResponseEntity.created(uriOfBookings).body(bookingSaved);
@@ -37,6 +36,6 @@ public class BookingController {
 
     @DeleteMapping
     public void delete(@RequestParam LocalDate date) {
-        service.delete(logged_user_email, date);
+        service.delete(AuthorizedUser.mail(), date);
     }
 }

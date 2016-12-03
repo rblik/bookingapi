@@ -9,5 +9,6 @@ public class JsonUtil {
     public static final String userJson = "{\"email\":\"user@ofice.com\",\"name\":\"NewUser\",\"password\":\"password\"}";
     public static final String userJsonNotValid = "{\"email\":\"user@ofice.com\",\"password\":\"password\"}";
     public static final String userJsonForUpdate = "{\"email\":\"user@yandex.com\",\"name\":\"User1_updated\",\"password\":\"password\"}";
-    public static final String mealsJson = "[{\"description\":\"Salad\",\"preparingTime\":10,\"price\":\"10.0\"},{\"description\":\"Lasagna\",\"preparingTime\":\"10\",\"price\":\"10.0\"}]";
+    public static final String newMeal = "{\"description\":\"Salad\",\"preparingTime\":\"10\",\"price\":\"10.0\"}";
+    public static final String newMealNotValid = "{\"preparingTime\":\"10\",\"price\":\"10.0\"}";
 }

@@ -11,10 +11,10 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
 public class UsersUtil {
-    public static final User ADMIN_1 = new User("admin@gmail.com", "Admin", "admin", asList(ROLE_USER, ROLE_ADMIN));
-    public static final User ADMIN_2 = new User("admin1@gmail.com", "Admin1", "admin", asList(ROLE_USER, ROLE_ADMIN));
-    public static final User USER_1 = new User("user@yandex.ru", "User1", "password", singletonList(ROLE_USER));
-    public static final User USER_2 = new User("user@fun.com", "User2", "password", singletonList(ROLE_USER));
+    public static final User ADMIN_1 = new User("admin@gmail.com", "Admin", "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", asList(ROLE_USER, ROLE_ADMIN));
+    public static final User ADMIN_2 = new User("admin1@gmail.com", "Admin1", "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", asList(ROLE_USER, ROLE_ADMIN));
+    public static final User USER_1 = new User("user@yandex.ru", "User1", "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", singletonList(ROLE_USER));
+    public static final User USER_2 = new User("user@fun.com", "User2", "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", singletonList(ROLE_USER));
     public static final User USER_1_UPDATED = new User("user@yandex.com", "User1_updated", "password", singletonList(ROLE_USER));
     public static final User NEW_USER = new User("user@ofice.com", "NewUser", "password");
     public static final User INVALID_USER = new User(null, null, "password");

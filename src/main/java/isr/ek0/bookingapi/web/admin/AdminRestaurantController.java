@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.web.admin;
 
+import isr.ek0.bookingapi.AuthorizedUser;
 import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
-import static isr.ek0.bookingapi.AuthorizedUser.logged_admin_email;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -23,12 +23,12 @@ public class AdminRestaurantController {
 
     @GetMapping
     public List<Restaurant> getOwnRestaurants() {
-        return restaurantService.getAllByOwnerEmail(logged_admin_email);
+        return restaurantService.getAllByOwnerEmail(AuthorizedUser.mail());
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> saveRestaurant(@Valid @RequestBody Restaurant restaurant) {
-        Restaurant restaurantCreated = restaurantService.save(logged_admin_email, restaurant);
+        Restaurant restaurantCreated = restaurantService.save(AuthorizedUser.mail(), restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/admin/restaurants/{restaurantName}")
                 .buildAndExpand(restaurant.getName()).toUri();
@@ -37,6 +37,6 @@ public class AdminRestaurantController {
 
     @DeleteMapping("/{restaurantName}")
     public void deleteRestaurant(@PathVariable String restaurantName) {
-        restaurantService.delete(logged_admin_email, restaurantName);
+        restaurantService.delete(AuthorizedUser.mail(), restaurantName);
     }
 }
