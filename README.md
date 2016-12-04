@@ -1,5 +1,4 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/c5ea2425be4d474c90e9c3abdb77d462)](https://www.codacy.com/app/rblick/bookingapi?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rblik/bookingapi&amp;utm_campaign=Badge_Grade)
-https://travis-ci.org/rblik/bookingapi.svg?branch=master
 [![Build Status](https://travis-ci.org/rblik/bookingapi.svg?branch=master)](https://travis-ci.org/rblik/bookingapi)
 
 JSON API project
