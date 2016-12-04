@@ -32,7 +32,7 @@ public class AdminMealController {
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/admin/restaurants/{restaurantName}")
                 .buildAndExpand(restaurant.getName()).toUri();
-        LOGGER.info("admin {} is saving {} for restaurant {} of owner", loggedAdminEmail, meal, restaurantName);
+        LOGGER.info("admin {} is saving {} for restaurant {}", loggedAdminEmail, meal, restaurantName);
         return ResponseEntity.created(uriOfNewResource).body(restaurant);
     }
 
@@ -46,7 +46,7 @@ public class AdminMealController {
     @DeleteMapping
     public void deleteMeals(@PathVariable String restaurantName) {
         String loggedAdminEmail = AuthorizedUser.mail();
-        LOGGER.info("admin {} is deleting meals for restaurant {}", loggedAdminEmail, restaurantName);
+        LOGGER.info("admin {} is deleting all meals for restaurant {}", loggedAdminEmail, restaurantName);
         service.deleteAllMeals(loggedAdminEmail, restaurantName);
     }
 }

@@ -45,7 +45,7 @@ public class BookingController {
     @DeleteMapping
     public void delete(@RequestParam LocalDate date) {
         String loggedUserEmail = AuthorizedUser.mail();
-        LOGGER.info("{} is deleting his booking for {}", date);
+        LOGGER.info("{} is deleting his booking for {}", loggedUserEmail,date);
         service.delete(loggedUserEmail, date);
     }
 }

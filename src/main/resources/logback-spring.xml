@@ -17,9 +17,6 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.data.mongodb" level="debug" />
-    <logger name="isr.ek0.bookingapi.service.BaseServiceTest" level="debug"/>
-    <logger name="isr.ek0.bookingapi.web.BaseControllerTest" level="debug"/>
     <root level="info">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>

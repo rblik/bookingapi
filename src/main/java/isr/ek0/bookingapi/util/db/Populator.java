@@ -45,12 +45,12 @@ public class Populator {
                         new Meal("Pasta", 20, 5.0),
                         new Meal("Soup", 40, 6.0),
                         new Meal("Burger", 20, 6.0)),
-                        "user@yandex.ru", LocalTime.of(10, 0), LocalTime.of(23, 0)),
+                        "admin@gmail.com", LocalTime.of(10, 0), LocalTime.of(23, 0)),
                 new Restaurant("pickles", new GeoJsonPoint(-30.0, -38.0), of(
                         new Meal("Kebab", 20, 5.0),
                         new Meal("Falafel", 40, 6.0),
                         new Meal("Djahnun", 20, 6.0)),
-                        "user@fun.com", LocalTime.of(9, 0), LocalTime.of(23, 0))));
+                        "admin1@gmail.com", LocalTime.of(9, 0), LocalTime.of(23, 0))));
         template.insertAll(of(
                 new User("admin@gmail.com", "Admin", "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", asList(ROLE_USER, ROLE_ADMIN)),
                 new User("admin1@gmail.com", "Admin1", "$2a$10$WejOLxVuXRpOgr4IlzQJ.eT4UcukNqHlAiOVZj1P/nmc8WbpMkiju", asList(ROLE_USER, ROLE_ADMIN)),
