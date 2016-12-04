@@ -13,7 +13,6 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
-import static com.mongodb.WriteConcern.MAJORITY;
 import static isr.ek0.bookingapi.util.db.Populator.populateDB;
 import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
@@ -32,9 +31,8 @@ public class Application {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        MongoTemplate template = new MongoTemplate(factory);
-        template.setWriteConcern(MAJORITY);
-        return template;
+        //        template.setWriteConcern(MAJORITY);
+        return new MongoTemplate(factory);
     }
 
     @Bean
