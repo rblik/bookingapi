@@ -15,6 +15,7 @@ User, Admin
 `curl http://localhost:8080/profile --user user@office.com:password`
 * delete profile: 
 `curl -X DELETE http://localhost:8080/profile --user user@office.com:password`
+-----------------
 #####restaurants
 * to check all restaurants: 
     * `curl http://localhost:8080/restaurants`
@@ -24,6 +25,7 @@ User, Admin
     * ` curl "http://localhost:8080/restaurants?longitude=-32.7612&latitude=-34.9241&distance=600"`
 * get particular restaurant: 
 `curl http://localhost:8080/restaurants/the_table`
+-----------------
 #####bookings
 * to book a place: 
 `curl -X POST -H "Content-Type:application/json" http://localhost:8080/bookings/the_table --user user@office.com:password -d '{"date":"2016-12-09","time":"15:00"}'`
@@ -41,6 +43,7 @@ admin
 `curl -X POST -H "Content-Type:application/json" http://localhost:8080/admin/restaurants --user admin@gmail.com:admin -d '{"name":"Fine Eat","location":{"x":"10.0","y":"-40.0"},"menu":[{"description":"Porridge","preparingTime":"30","price":"10.0"},{"description":"Soup","preparingTime":"45","price":"15.0"},{"description":"Grecha","preparingTime":"15","price":"20.0"}],"openTime":"06:00","closeTime":"22:00"}'`
 * delete restaurant: 
 `curl -X DELETE -H "Cotent-Type:application/json" http://localhost:8080/admin/restaurants/the_table --user admin@gmail.com:admin`
+-----------------
 #####meals
 * save meal: 
 `curl -X POST -H "Content-Type:application/json" http://localhost:8080/admin/restaurants/the_table/meals --user admin@gmail.com:admin -d '{"description":"Salad","preparingTime":"10","price":"10.0"}'`
@@ -48,6 +51,7 @@ admin
 `curl -X DELETE -H "Content-Type:application/json" http://localhost:8080/admin/restaurants/the_table/meals?description=Sushi --user admin@gmail.com:admin`
 * delete all meal's for particular restaurant: 
 `curl -X DELETE -H "Content-Type:application/json" http://localhost:8080/admin/restaurants/the_table/meals --user admin@gmail.com:admin`
+-----------------
 #####bookings
 * check all bookings for particular restaurant
     * with specified date: 
