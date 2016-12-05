@@ -41,12 +41,12 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public void delete(String loggedUserEmail, LocalDate date) {
+    public void delete(@NonNull String loggedUserEmail, LocalDate date) {
         bookingRepository.delete(loggedUserEmail, date);
     }
 
     @Override
-    public void deleteAll(String loggedUserEmail) {
+    public void deleteAll(@NonNull String loggedUserEmail) {
         bookingRepository.deleteAll(loggedUserEmail);
     }
 }

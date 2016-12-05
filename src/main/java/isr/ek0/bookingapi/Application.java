@@ -31,7 +31,7 @@ public class Application {
 
     @Bean
     public MongoTemplate mongoTemplate() {
-        //        template.setWriteConcern(MAJORITY);
+        //        template.setWriteConcern(MAJORITY);   in case of ReplicaSet
         return new MongoTemplate(factory);
     }
 

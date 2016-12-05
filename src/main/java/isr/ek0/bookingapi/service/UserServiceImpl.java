@@ -3,6 +3,7 @@ package isr.ek0.bookingapi.service;
 import isr.ek0.bookingapi.AuthorizedUser;
 import isr.ek0.bookingapi.model.User;
 import isr.ek0.bookingapi.repo.UserRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,9 +23,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public User get(String email) {
-        notNull(email, "email must not be null");
-        return checkNotFound(userRepository.get(email), email, User.class);
+    public User get(@NonNull String loggedUserEmail) {
+        notNull(loggedUserEmail, "email must not be null");
+        return checkNotFound(userRepository.get(loggedUserEmail), loggedUserEmail, User.class);
     }
 
     @Override

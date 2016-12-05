@@ -43,7 +43,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public void delete(String loggedUserName, String restaurantName) {
+    public void delete(@NonNull String loggedUserName, String restaurantName) {
         checkNotFound(restaurantRepository.delete(loggedUserName, restaurantName), restaurantName, Restaurant.class);
         bookingRepository.deleteAllByRestaurant(restaurantName);
     }
