@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import static isr.ek0.bookingapi.util.encoding.PasswordUtil.getPasswordEncoder;
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
@@ -43,12 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable().exceptionHandling()
+        http.sessionManagement().sessionCreationPolicy(STATELESS)
+                .and().httpBasic()
+                .and().csrf().disable().exceptionHandling()
                 .and().authorizeRequests()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/restaurants/**").permitAll()
                 .antMatchers("/admin/**").access("hasRole('ADMIN')")
-                .antMatchers("/**").hasAnyRole("USER", "ADMIN")
-                .and().httpBasic();
+                .antMatchers("/**").hasAnyRole("USER", "ADMIN");
     }
 }
