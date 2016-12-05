@@ -44,6 +44,13 @@ public class ExceptionUtil {
         return object;
     }
 
+    public static <T, S> T checkNotFound(T object, Object id, String loggedAdminName, Class<S> clazz) {
+        if (object == null) {
+            throw new NotFoundException("Not found " + clazz.getSimpleName().toLowerCase() + " with id = " + id + " for admin " + loggedAdminName);
+        }
+        return object;
+    }
+
     public static List<Double> validateCoordinates(List<Double> coordinates) {
         List<Double> coordinatesValidated = coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
         if ((Double.compare(-180.0, coordinatesValidated.get(0)) == 1) ||

@@ -36,8 +36,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllByRestaurantName(@NonNull String loggedUserEmail, String restaurantName, LocalDate date) {
-        return checkNotFound(bookingRepository.getAllByRestaurantName(loggedUserEmail, restaurantName, date == null ? now() : date), restaurantName, Restaurant.class);
+    public List<Booking> getAllByRestaurantName(@NonNull String loggedAdminEmail, String restaurantName, LocalDate date) {
+        return checkNotFound(bookingRepository.getAllByRestaurantName(loggedAdminEmail, restaurantName, date == null ? now() : date), restaurantName, loggedAdminEmail, Restaurant.class);
     }
 
     @Override
