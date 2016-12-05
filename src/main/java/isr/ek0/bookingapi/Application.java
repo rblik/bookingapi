@@ -1,24 +1,21 @@
 package isr.ek0.bookingapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.mongodb.MongoDbFactory;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 import static isr.ek0.bookingapi.util.db.Populator.populateDB;
 import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
 @SpringBootApplication
 @EnableCaching
-@Import(SecurityConfiguration.class)
+@Import({SecurityConfiguration.class, PersistenceConfig.class})
 public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
@@ -26,26 +23,7 @@ public class Application {
         populateDB(template);
     }
 
-    @Autowired
-    private MongoDbFactory factory;
-
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        //        template.setWriteConcern(MAJORITY);   in case of ReplicaSet
-        return new MongoTemplate(factory);
-    }
-
-    @Bean
-    public ValidatingMongoEventListener validatingMongoEventListener() {
-        return new ValidatingMongoEventListener(validator());
-    }
-
-    @Bean
-    public LocalValidatorFactoryBean validator() {
-        return new LocalValidatorFactoryBean();
-    }
-
-//    @Primary
+    @Primary
     @Bean
     public ObjectMapper objectMapper() {
         return getMapper();
