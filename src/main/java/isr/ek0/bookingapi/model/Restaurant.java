@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -25,8 +26,8 @@ import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GE
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "name")
-public class Restaurant implements Serializable{
+@EqualsAndHashCode(of = "name", callSuper = false)
+public class Restaurant extends ResourceSupport implements Serializable{
 
     @Id
     @NotEmpty

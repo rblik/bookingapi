@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.google.common.collect.ImmutableList.of;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -24,13 +25,18 @@ public class RestaurantController {
     @GetMapping
     public List<Restaurant> getAll(@RequestParam(required = false, value = "order") String order) {
         LOGGER.info("retrieving all restaurants");
-        return service.getAll(order);
+        List<Restaurant> all = service.getAll(order);
+        all.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel()));
+        return all;
     }
 
     @GetMapping("/{restaurantName}")
     public Restaurant get(@PathVariable String restaurantName) {
         LOGGER.info("retrieving restaurant {}", restaurantName);
-        return service.get(restaurantName);
+        Restaurant restaurant = service.get(restaurantName);
+        restaurant.add(linkTo(RestaurantController.class).withRel("getAll"));
+        restaurant.add(linkTo(RestaurantController.class).slash(restaurantName).withSelfRel());
+        return restaurant;
     }
 
     @GetMapping(params = {"longitude", "latitude"})
@@ -38,6 +44,8 @@ public class RestaurantController {
                                                                 @RequestParam String latitude,
                                                                 @RequestParam(required = false) String distance) {
         LOGGER.info("retrieving restaurants for coordinates: {}, {}", longitude, latitude);
-        return service.getAllByLocationAndDistance(of(longitude, latitude), distance);
+        List<RestaurantWithDistance> allByLocationAndDistance = service.getAllByLocationAndDistance(of(longitude, latitude), distance);
+        allByLocationAndDistance.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel()));
+        return allByLocationAndDistance;
     }
 }

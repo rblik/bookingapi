@@ -8,12 +8,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/bookings")
@@ -28,7 +29,9 @@ public class BookingController {
     public List<Booking> getAll() {
         String loggedUserEmail = AuthorizedUser.mail();
         LOGGER.info("{} is retrieving all his bookings", loggedUserEmail);
-        return service.getAll(loggedUserEmail);
+        List<Booking> all = service.getAll(loggedUserEmail);
+        all.forEach(booking -> booking.add(linkTo(RestaurantController.class).slash(booking.getRestaurantName()).withRel(booking.getRestaurantName())));
+        return all;
     }
 
     @PostMapping("/{restaurantName}")
@@ -37,9 +40,9 @@ public class BookingController {
         booking.setRestaurantName(restaurantName);
         LOGGER.info("{} is saving {} for {}", loggedUserEmail, booking, restaurantName);
         Booking bookingSaved = service.save(loggedUserEmail, booking);
-        URI uriOfBookings = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/bookings").build().toUri();
-        return ResponseEntity.created(uriOfBookings).body(bookingSaved);
+        bookingSaved.add(linkTo(BookingController.class).withRel("bookings"));
+        bookingSaved.add(linkTo(RestaurantController.class).slash(booking.getRestaurantName()).withRel(booking.getRestaurantName()));
+        return ResponseEntity.status(CREATED).body(bookingSaved);
     }
 
     @DeleteMapping

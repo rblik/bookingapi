@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.hateoas.ResourceSupport;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -17,8 +18,8 @@ import static com.fasterxml.jackson.annotation.JsonProperty.Access.READ_ONLY;
 @Document(collection = "bookings")
 @Data
 @NoArgsConstructor
-@EqualsAndHashCode(of = "bookingId")
-public class Booking implements Serializable {
+@EqualsAndHashCode(of = "bookingId", callSuper = false)
+public class Booking extends ResourceSupport implements Serializable {
     @Id
     @JsonUnwrapped
     private BookingId bookingId;

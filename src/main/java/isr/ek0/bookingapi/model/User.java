@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.hateoas.ResourceSupport;
 
 import java.util.List;
 
@@ -21,8 +22,8 @@ import static java.util.Collections.singletonList;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = "email")
-public class User {
+@EqualsAndHashCode(of = "email", callSuper = false)
+public class User extends ResourceSupport {
     @Id
     @NotEmpty
     @Email
