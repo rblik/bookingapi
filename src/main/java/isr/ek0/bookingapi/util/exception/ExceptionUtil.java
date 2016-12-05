@@ -33,20 +33,18 @@ public class ExceptionUtil {
 
     public static void checkNotFound(int result, Object id, Class clazz, boolean isModification) {
         if (result == 0 && isModification) {
-            checkNotFound(null, id, clazz);
+            checkNotFound(null, id, null, clazz);
         }
     }
 
     public static <T, S> T checkNotFound(T object, Object id, Class<S> clazz) {
-        if (object == null) {
-            throw new NotFoundException("Not found " + clazz.getSimpleName().toLowerCase() + " with id = " + id);
-        }
-        return object;
+        return checkNotFound(object, id, null, clazz);
     }
 
     public static <T, S> T checkNotFound(T object, Object id, String loggedAdminName, Class<S> clazz) {
         if (object == null) {
-            throw new NotFoundException("Not found " + clazz.getSimpleName().toLowerCase() + " with id = " + id + " for admin " + loggedAdminName);
+            String adminAdd = loggedAdminName == null ? "" : " for admin " + loggedAdminName;
+            throw new NotFoundException("Not found " + clazz.getSimpleName().toLowerCase() + " with id = " + id + adminAdd);
         }
         return object;
     }
