@@ -1,10 +1,10 @@
 > For windows use `Git Bash`
 
 ####Credentials
-- admin@gmail.com admin
-- admin1@gmail.com admin
-- user@yandex.ru password
-- user@fun.com password
+- admin@gmail.com / admin
+- admin1@gmail.com / admin
+- user@yandex.ru / password
+- user@fun.com / password
 
 User, Admin
 -----------
@@ -32,9 +32,9 @@ User, Admin
     * to delete booking for particular date: 
     `curl -X DELETE -H "Cotent-Type:application/json" http://localhost:8080/bookings?date=2016-12-09 --user user@office.com:password`
 
-admin
+Admin
 -----
-- resturants
+- restaurants
     * check all owned restaurants: http://localhost:8080/admin/restaurants
     `curl http://localhost:8080/admin/restaurants --user admin@gmail.com:admin`
     * save restaurant: 
