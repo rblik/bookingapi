@@ -11,6 +11,7 @@ JSON API project
 * <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
 * <a href="https://github.com/FasterXML/jackson">Json Jackson</a>,
 * <a href="http://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html">Spring RestTemplate</a>
+* <a href="http://docs.spring.io/autorepo/docs/spring-hateoas/0.20.x/reference/html/">Spring HATEOAS</a>
 * <a href="http://docs.spring.io/spring-data/mongodb/docs/current/reference/html/">Spring Data Mongo</a>,
 * <a href="http://www.mongodb.org/">Mongo DB</a>,
 * <a href="http://tomcat.apache.org/">Apache Tomcat</a>,
