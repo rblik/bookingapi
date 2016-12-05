@@ -56,8 +56,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @Cacheable("restaurants")
     @Override
-    public List<RestaurantWithDistance> getAllByLocationAndDistance(List<String> coordinates, String distance) {
-        return restaurantRepository.getAllByLocationAndDistance(parseCoordinates(coordinates), parseDistance(distance));
+    public List<RestaurantWithDistance> getAllByLocationAndDistance(String longitude, String latitude, String distance) {
+        return restaurantRepository.getAllByLocationAndDistance(parseCoordinates(longitude, latitude), parseDistance(distance));
     }
 
     @Override

@@ -53,10 +53,10 @@ public class ExceptionUtil {
 
     public static List<Double> validateCoordinates(List<Double> coordinates) {
         List<Double> coordinatesValidated = coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
-        if ((Double.compare(-180.0, coordinatesValidated.get(0)) == 1) ||
-                (Double.compare(180.0, coordinatesValidated.get(0)) == -1) ||
-                (Double.compare(-90.0, coordinatesValidated.get(1)) == 1) ||
-                (Double.compare(90.0, coordinatesValidated.get(1)) == -1)) {
+        if ((Double.compare(-180.0, coordinatesValidated.get(0)) > 0) ||
+                (Double.compare(180.0, coordinatesValidated.get(0)) < 0) ||
+                (Double.compare(-90.0, coordinatesValidated.get(1)) > 0) ||
+                (Double.compare(90.0, coordinatesValidated.get(1)) < 0)) {
             throw new WrongCoordinatesException("wrong coordinate boundaries, longitude must be in range (-180.0...180.0), latitude (-90.0...90.0)");
         }
         return coordinatesValidated;

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.google.common.collect.ImmutableList.of;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
@@ -44,7 +43,7 @@ public class RestaurantController {
                                                                 @RequestParam String latitude,
                                                                 @RequestParam(required = false) String distance) {
         LOGGER.info("retrieving restaurants for coordinates: {}, {}", longitude, latitude);
-        List<RestaurantWithDistance> allByLocationAndDistance = service.getAllByLocationAndDistance(of(longitude, latitude), distance);
+        List<RestaurantWithDistance> allByLocationAndDistance = service.getAllByLocationAndDistance(longitude, latitude, distance);
         allByLocationAndDistance.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel()));
         return allByLocationAndDistance;
     }

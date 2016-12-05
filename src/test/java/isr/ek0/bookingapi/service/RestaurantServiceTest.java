@@ -18,7 +18,6 @@ import static com.google.common.collect.ImmutableList.of;
 import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
 import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
 import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_2;
-import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -80,24 +79,24 @@ public class RestaurantServiceTest extends BaseServiceTest{
 
     @Test
     public void testAllByLocation() {
-        List<RestaurantWithDistance> allByLocation = restaurantService.getAllByLocationAndDistance(asList("0", "0"), null);
+        List<RestaurantWithDistance> allByLocation = restaurantService.getAllByLocationAndDistance("0", "0", null);
         assertEquals(RESTAURANTS_SORTED_BY_LOCATION, allByLocation);
     }
 
     @Test(expected = WrongCoordinatesException.class)
     public void testAllByLocationWithWrongCoordinates() {
-        restaurantService.getAllByLocationAndDistance(asList("wrong value", null), null);
+        restaurantService.getAllByLocationAndDistance("wrong value", "another wrong value", null);
     }
 
     @Test
     public void testGetLocationWithDistance() {
-        List<RestaurantWithDistance> allByLocationWithDistance = restaurantService.getAllByLocationAndDistance(asList("0", "0"), "5500.0");
+        List<RestaurantWithDistance> allByLocationWithDistance = restaurantService.getAllByLocationAndDistance("0", "0", "5500.0");
         assertEquals(singletonList(ADMIN2_RESTAURANT2), allByLocationWithDistance);
     }
 
     @Test
     public void testGetLocationWithWrongDistance() {
-        List<RestaurantWithDistance> allByLocationWithDistance = restaurantService.getAllByLocationAndDistance(asList("0", "0"), "wrong value");
+        List<RestaurantWithDistance> allByLocationWithDistance = restaurantService.getAllByLocationAndDistance("0", "0", "wrong value");
         assertEquals(RESTAURANTS_SORTED_BY_LOCATION, allByLocationWithDistance);
     }
 

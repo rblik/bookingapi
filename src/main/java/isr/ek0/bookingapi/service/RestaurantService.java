@@ -17,7 +17,7 @@ public interface RestaurantService {
 
     List<Restaurant> getAll(String sort);
 
-    List<RestaurantWithDistance> getAllByLocationAndDistance(List<String> coordinates, String distanceKm);
+    List<RestaurantWithDistance> getAllByLocationAndDistance(String longitude, String latitude, String distanceKm);
 
     List<Restaurant> getAllByOwnerEmail(String ownerEmail);
 
