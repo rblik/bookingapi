@@ -28,11 +28,11 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public Restaurant save(String loggedUserEmail, Restaurant restaurant) {
+    public Restaurant save(String loggedAdminEmail, Restaurant restaurant) {
         notNull(restaurant, "restaurant must not be null");
-        restaurant.setOwnerEmail(loggedUserEmail);
+        restaurant.setOwnerEmail(loggedAdminEmail);
         restaurant.setName(restaurant.getName().toLowerCase().replace(" ", "_"));
-        return restaurantRepository.save(loggedUserEmail, restaurant);
+        return restaurantRepository.save(loggedAdminEmail, restaurant);
     }
 
     @Cacheable("restaurants")
@@ -43,8 +43,8 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public void delete(@NonNull String loggedUserName, String restaurantName) {
-        checkNotFound(restaurantRepository.delete(loggedUserName, restaurantName), restaurantName, Restaurant.class);
+    public void delete(@NonNull String loggedAdminName, String restaurantName) {
+        checkNotFound(restaurantRepository.delete(loggedAdminName, restaurantName), restaurantName, Restaurant.class);
         bookingRepository.deleteAllByRestaurant(restaurantName);
     }
 
@@ -61,26 +61,26 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getAllByOwnerEmail(@NonNull String ownerEmail) {
-        return restaurantRepository.getAllByOwnerEmail(ownerEmail);
+    public List<Restaurant> getAllByOwnerEmail(@NonNull String loggedAdminEmail) {
+        return restaurantRepository.getAllByOwnerEmail(loggedAdminEmail);
     }
 
     @Override
-    public Restaurant getRestaurantForOwner(String loggedAdminEmail, String restaurantName) {
+    public Restaurant getRestaurantForOwner(@NonNull String loggedAdminEmail, String restaurantName) {
         return checkNotFound(restaurantRepository.getRestaurantForOwner(loggedAdminEmail, restaurantName), restaurantName, loggedAdminEmail, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public Restaurant saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
+    public Restaurant saveMeal(@NonNull String loggedAdminEmail, String restaurantName, Meal meal) {
         notNull(meal, "meal must not be null");
-        return checkNotFound(restaurantRepository.saveMeal(loggedUserEmail, restaurantName, meal), restaurantName, Restaurant.class);
+        return checkNotFound(restaurantRepository.saveMeal(loggedAdminEmail, restaurantName, meal), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
-    public Restaurant deleteMeal(@NonNull String loggedUserEmail, String restaurantName, String mealDescription) {
-        return checkNotFound(restaurantRepository.deleteMeal(loggedUserEmail, restaurantName, mealDescription), restaurantName, Restaurant.class);
+    public Restaurant deleteMeal(@NonNull String loggedAdminEmail, String restaurantName, String mealDescription) {
+        return checkNotFound(restaurantRepository.deleteMeal(loggedAdminEmail, restaurantName, mealDescription), restaurantName, Restaurant.class);
     }
 
     @CacheEvict(value = "restaurants", allEntries = true)

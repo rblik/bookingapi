@@ -9,10 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
@@ -30,9 +28,9 @@ public class AdminRestaurantController {
 
     @GetMapping
     public List<Restaurant> getOwnRestaurants() {
-        String ownerEmail = AuthorizedUser.mail();
-        LOGGER.info("admin {} is retrieving all his restaurants", ownerEmail);
-        List<Restaurant> allByOwnerEmail = restaurantService.getAllByOwnerEmail(ownerEmail);
+        String loggedAdminEmail = AuthorizedUser.mail();
+        LOGGER.info("admin {} is retrieving all his restaurants", loggedAdminEmail);
+        List<Restaurant> allByOwnerEmail = restaurantService.getAllByOwnerEmail(loggedAdminEmail);
         allByOwnerEmail.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).withSelfRel()));
         return allByOwnerEmail;
     }

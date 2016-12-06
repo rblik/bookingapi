@@ -2,7 +2,6 @@ package isr.ek0.bookingapi.repo.booking;
 
 import isr.ek0.bookingapi.model.Booking;
 import isr.ek0.bookingapi.model.BookingId;
-import isr.ek0.bookingapi.model.Restaurant;
 import isr.ek0.bookingapi.repo.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
