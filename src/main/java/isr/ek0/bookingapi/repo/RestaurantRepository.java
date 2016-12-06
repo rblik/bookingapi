@@ -22,6 +22,8 @@ public interface RestaurantRepository {
 
     Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
+    Restaurant getRestaurantForOwner(String loggedUserEmail, String restaurantName);
+
     Restaurant deleteMeal(String loggedUserEmail, String restaurantName, String mealDescription);
 
     int deleteAllMeals(String loggedUserEmail, String restaurantName);

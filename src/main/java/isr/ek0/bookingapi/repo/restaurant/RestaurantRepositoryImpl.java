@@ -73,18 +73,19 @@ public class RestaurantRepositoryImpl implements RestaurantRepository {
 
     @Override
     public Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal) {
-        Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
+        Restaurant restaurant = getRestaurantForOwner(loggedUserEmail, restaurantName);
         return restaurant == null ? null : crudRepository.save(restaurant.addMeal(meal));
     }
 
-    private Restaurant getRestaurantForUpdate(String loggedUserEmail, String restaurantName) {
+    @Override
+    public Restaurant getRestaurantForOwner(String loggedUserEmail, String restaurantName) {
         return template.findOne(new Query(where("ownerEmail").is(loggedUserEmail)
                 .andOperator(where("_id").is(restaurantName))), Restaurant.class);
     }
 
     @Override
     public Restaurant deleteMeal(String loggedUserEmail, String restaurantName, String mealDescription) {
-        Restaurant restaurant = getRestaurantForUpdate(loggedUserEmail, restaurantName);
+        Restaurant restaurant = getRestaurantForOwner(loggedUserEmail, restaurantName);
         return restaurant == null ? null : crudRepository.save(restaurant.deleteMeal(mealDescription));
     }
 

@@ -37,10 +37,8 @@ public class BookingRepositoryImpl implements BookingRepository {
     }
 
     @Override
-    public List<Booking> getAllByRestaurantName(String loggedUserEmail, String restaurantName, LocalDate today) {
-        Restaurant restaurant = template.findOne(new Query(where("ownerEmail").is(loggedUserEmail)
-                .andOperator(where("_id").is(restaurantName))), Restaurant.class);
-        return restaurant == null ? null : template.find(new Query(where("restaurantName").is(restaurantName)
+    public List<Booking> getAllByRestaurantName(String restaurantName, LocalDate today) {
+        return template.find(new Query(where("restaurantName").is(restaurantName)
                 .andOperator(where("_id.date").is(today))), Booking.class);
     }
 

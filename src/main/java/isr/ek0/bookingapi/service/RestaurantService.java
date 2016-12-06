@@ -21,6 +21,8 @@ public interface RestaurantService {
 
     List<Restaurant> getAllByOwnerEmail(String ownerEmail);
 
+    Restaurant getRestaurantForOwner(String loggedAdminEmail, String restaurantName);
+
     Restaurant saveMeal(String loggedUserEmail, String restaurantName, Meal meal);
 
     Restaurant deleteMeal(@NonNull String loggedUserEmail, String restaurantName, String mealDescription);

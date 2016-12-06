@@ -65,6 +65,11 @@ public class RestaurantServiceImpl implements RestaurantService {
         return restaurantRepository.getAllByOwnerEmail(ownerEmail);
     }
 
+    @Override
+    public Restaurant getRestaurantForOwner(String loggedAdminEmail, String restaurantName) {
+        return checkNotFound(restaurantRepository.getRestaurantForOwner(loggedAdminEmail, restaurantName), restaurantName, loggedAdminEmail, Restaurant.class);
+    }
+
     @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant saveMeal(@NonNull String loggedUserEmail, String restaurantName, Meal meal) {
