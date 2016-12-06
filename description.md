@@ -1,9 +1,11 @@
 ##Booking system for reserving a place in chosen restaurant.
 
 * 2 types of users: admin and regular users
-* Admin (restaurant owner) can input a his own restaurant and it's lunch menu of the day 
+* Admin (restaurant owner) can 
+ - input his restaurant and it's lunch menu of the day 
+ - view bookings of own restaurant
 * Menu changes each day (admin do the updates)
-* Everybody can view a list of existing restaurants, depending on the location, and distance
+* Everybody can browse existing restaurants, depending on the location, and distance
 * Authorized users can
  - book a table in restaurant they want to have lunch at but not later than 2 hours from the time of reservation.
  - have one booking per day
