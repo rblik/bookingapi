@@ -16,4 +16,6 @@ public interface BookingService {
     void delete(String loggedUserEmail, LocalDate date);
 
     void deleteAll(String loggedUserEmail);
+
+    void deleteAllByRestaurant(String restaurantName);
 }

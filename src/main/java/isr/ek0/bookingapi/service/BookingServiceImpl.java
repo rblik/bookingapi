@@ -50,4 +50,9 @@ public class BookingServiceImpl implements BookingService {
     public void deleteAll(@NonNull String loggedUserEmail) {
         bookingRepository.deleteAll(loggedUserEmail);
     }
+
+    @Override
+    public void deleteAllByRestaurant(String restaurantName) {
+        bookingRepository.deleteAllByRestaurant(restaurantName);
+    }
 }
