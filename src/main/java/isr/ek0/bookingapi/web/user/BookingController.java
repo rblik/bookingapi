@@ -13,6 +13,7 @@ import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -30,8 +31,10 @@ public class BookingController {
         String loggedUserEmail = AuthorizedUser.mail();
         LOGGER.info("{} is retrieving all his bookings", loggedUserEmail);
         List<Booking> all = service.getAll(loggedUserEmail);
-        all.forEach(booking -> booking.add(linkTo(RestaurantController.class).slash(booking.getRestaurantName()).withRel(booking.getRestaurantName())));
-        return all;
+        return all.stream().peek(booking ->
+                booking.add(linkTo(RestaurantController.class)
+                        .slash(booking.getRestaurantName())
+                        .withRel(booking.getRestaurantName()))).collect(toList());
     }
 
     @PostMapping("/{restaurantName}")

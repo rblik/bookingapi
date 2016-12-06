@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -31,8 +33,10 @@ public class AdminRestaurantController {
         String loggedAdminEmail = AuthorizedUser.mail();
         LOGGER.info("admin {} is retrieving all his restaurants", loggedAdminEmail);
         List<Restaurant> allByOwnerEmail = restaurantService.getAllByOwnerEmail(loggedAdminEmail);
-        allByOwnerEmail.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).withSelfRel()));
-        return allByOwnerEmail;
+        return allByOwnerEmail.stream().peek(restaurant -> restaurant.add(
+                linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel(),
+                linkTo(methodOn(AdminBookingController.class).getAllBookingsByRestaurant(restaurant.getName(), null)).withRel("bookings")))
+                .collect(toList());
     }
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
@@ -42,6 +46,7 @@ public class AdminRestaurantController {
         Restaurant restaurantCreated = restaurantService.save(loggedAdminName, restaurant);
         restaurantCreated.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel());
         restaurantCreated.add(linkTo(AdminRestaurantController.class).withRel("ownRestaurants"));
+        restaurantCreated.add(linkTo(methodOn(AdminBookingController.class).getAllBookingsByRestaurant(restaurant.getName(), null)).withRel("bookings"));
         return ResponseEntity.status(CREATED).body(restaurantCreated);
     }
 

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static java.util.stream.Collectors.toList;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 @RestController
@@ -25,8 +26,9 @@ public class RestaurantController {
     public List<Restaurant> getAll(@RequestParam(required = false, value = "order") String order) {
         LOGGER.info("retrieving all restaurants");
         List<Restaurant> all = service.getAll(order);
-        all.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel()));
-        return all;
+        return all.stream().peek(restaurant ->
+                restaurant.add(linkTo(RestaurantController.class)
+                        .slash(restaurant.getName()).withSelfRel())).collect(toList());
     }
 
     @GetMapping("/{restaurantName}")
@@ -34,7 +36,6 @@ public class RestaurantController {
         LOGGER.info("retrieving restaurant {}", restaurantName);
         Restaurant restaurant = service.get(restaurantName);
         restaurant.add(linkTo(RestaurantController.class).withRel("getAll"));
-        restaurant.add(linkTo(RestaurantController.class).slash(restaurantName).withSelfRel());
         return restaurant;
     }
 
@@ -44,7 +45,8 @@ public class RestaurantController {
                                                                 @RequestParam(required = false) String distance) {
         LOGGER.info("retrieving restaurants for coordinates: {}, {}", longitude, latitude);
         List<RestaurantWithDistance> allByLocationAndDistance = service.getAllByLocationAndDistance(longitude, latitude, distance);
-        allByLocationAndDistance.forEach(restaurant -> restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel()));
-        return allByLocationAndDistance;
+        return allByLocationAndDistance.stream().peek((restaurant ->
+                restaurant.add(linkTo(RestaurantController.class).
+                        slash(restaurant.getName()).withSelfRel()))).collect(toList());
     }
 }

@@ -40,7 +40,8 @@ public class ProfileController {
     public ResponseEntity<User> register(@Valid @RequestBody User user) {
         LOGGER.info("saving new {}", user);
         User userSaved = service.save(user);
-        userSaved.add(linkTo(ProfileController.class).slash("profile").withRel("profile"));
+        userSaved.add(linkTo(ProfileController.class).slash("profile").withRel("profile"),
+                linkTo(RestaurantController.class).withRel("restaurants"));
         return ResponseEntity.status(CREATED).body(userSaved);
     }
 

@@ -30,10 +30,10 @@ public class AdminMealController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> saveMeal(@Valid @RequestBody Meal meal, @PathVariable String restaurantName) {
         String loggedAdminEmail = AuthorizedUser.mail();
-        Restaurant restaurant = service.saveMeal(loggedAdminEmail, restaurantName, meal);
         LOGGER.info("admin {} is saving {} for restaurant {}", loggedAdminEmail, meal, restaurantName);
-        restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withRel("restaurant"));
-        restaurant.add(linkTo(AdminRestaurantController.class).withRel("ownRestaurants"));
+        Restaurant restaurant = service.saveMeal(loggedAdminEmail, restaurantName, meal);
+        restaurant.add(linkTo(RestaurantController.class).slash(restaurant.getName()).withSelfRel(),
+                linkTo(AdminRestaurantController.class).withRel("ownRestaurants"));
         return ResponseEntity.status(CREATED).body(restaurant);
     }
 
