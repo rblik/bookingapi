@@ -1,5 +1,6 @@
 package isr.ek0.bookingapi.util.exception;
 
+import com.google.common.primitives.Doubles;
 import isr.ek0.bookingapi.model.Booking;
 import isr.ek0.bookingapi.model.Restaurant;
 
@@ -15,14 +16,26 @@ public class ExceptionUtil {
     }
 
     public static Booking validateBooking(Booking booking, Restaurant restaurant) {
+        return checkTime(checkDate(checkSchedule(booking, restaurant)));
+    }
+
+    private static Booking checkSchedule(Booking booking, Restaurant restaurant) {
         if (booking.getTime() == null || booking.getTime().isAfter(restaurant.getCloseTime())
                 || booking.getTime().isBefore(restaurant.getOpenTime())) {
             throw new WrongBookingException("booking for restaurant " + restaurant.getName() + " must be for a time from " + restaurant.getOpenTime() + " to " + restaurant.getCloseTime());
         }
+        return booking;
+    }
+
+    private static Booking checkDate(Booking booking) {
         LocalDate date = booking.getBookingId().getDate();
         if (date == null) {
             throw new WrongBookingException("booking date must not be null");
         }
+        return booking;
+    }
+
+    private static Booking checkTime(Booking booking) {
         LocalDateTime ldt = LocalDateTime.of(booking.getBookingId().getDate(), booking.getTime());
         LocalDateTime earliestDateTime = now().plusHours(2);
         if (ldt.isBefore(earliestDateTime)) {
@@ -49,8 +62,8 @@ public class ExceptionUtil {
         return object;
     }
 
-    public static List<Double> validateCoordinates(List<Double> coordinates) {
-        List<Double> coordinatesValidated = coordinates.stream().filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
+    public static List<Double> parseAndValidateCoordinates(List<String> coordinates) {
+        List<Double> coordinatesValidated = coordinates.stream().map(Doubles::tryParse).filter(coordinate -> checkNotNull(coordinate, new WrongCoordinatesException("wrong coordinate, valid format example - 0.0"))).collect(toList());
         if ((Double.compare(-180.0, coordinatesValidated.get(0)) > 0) ||
                 (Double.compare(180.0, coordinatesValidated.get(0)) < 0) ||
                 (Double.compare(-90.0, coordinatesValidated.get(1)) > 0) ||
@@ -60,8 +73,8 @@ public class ExceptionUtil {
         return coordinatesValidated;
     }
 
-    private static boolean checkNotNull(Double coordinate, RuntimeException ex) {
-        if (coordinate == null) {
+    private static <T> boolean checkNotNull(T value, RuntimeException ex) {
+        if (value == null) {
             throw ex;
         }
         return true;
