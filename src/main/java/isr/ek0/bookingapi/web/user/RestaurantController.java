@@ -26,27 +26,32 @@ public class RestaurantController {
     public List<Restaurant> getAll(@RequestParam(required = false, value = "order") String order) {
         LOGGER.info("retrieving all restaurants");
         List<Restaurant> all = service.getAll(order);
-        return all.stream().peek(restaurant ->
-                restaurant.add(linkTo(RestaurantController.class)
-                        .slash(restaurant.getName()).withSelfRel())).collect(toList());
+        return all.stream().peek(restaurant -> {
+            restaurant.removeLinks();
+            restaurant.add(linkTo(RestaurantController.class)
+                    .slash(restaurant.getName()).withSelfRel());
+        }).collect(toList());
     }
 
     @GetMapping("/{restaurantName}")
     public Restaurant get(@PathVariable String restaurantName) {
         LOGGER.info("retrieving restaurant {}", restaurantName);
         Restaurant restaurant = service.get(restaurantName);
+        restaurant.removeLinks();
         restaurant.add(linkTo(RestaurantController.class).withRel("getAll"));
         return restaurant;
     }
 
     @GetMapping(params = {"longitude", "latitude"})
     public List<RestaurantWithDistance> getByGeo(@RequestParam String longitude,
-                                                                @RequestParam String latitude,
-                                                                @RequestParam(required = false) String distance) {
+                                                 @RequestParam String latitude,
+                                                 @RequestParam(required = false) String distance) {
         LOGGER.info("retrieving restaurants for coordinates: {}, {}", longitude, latitude);
         List<RestaurantWithDistance> allByLocationAndDistance = service.getAllByLocationAndDistance(longitude, latitude, distance);
-        return allByLocationAndDistance.stream().peek((restaurant ->
-                restaurant.add(linkTo(RestaurantController.class).
-                        slash(restaurant.getName()).withSelfRel()))).collect(toList());
+        return allByLocationAndDistance.stream().peek((restaurant -> {
+            restaurant.removeLinks();
+            restaurant.add(linkTo(RestaurantController.class).
+                    slash(restaurant.getName()).withSelfRel());
+        })).collect(toList());
     }
 }
