@@ -35,6 +35,7 @@ public abstract class BaseControllerTest {
         repopulateDB(mongoTemplate);
     }
 
+//    http://stackoverflow.com/questions/21920268/basic-authentication-for-rest-api-using-spring-resttemplate
     protected HttpHeaders setBasicAuth(String email, String pass) {
         String plainCreds = email+":"+pass;
         byte[] plainCredsBytes = plainCreds.getBytes();
