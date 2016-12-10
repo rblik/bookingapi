@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
-import static isr.ek0.bookingapi.testutils.BookingUtil.BOOKINGS;
+import static isr.ek0.bookingapi.testutils.BookingData.BOOKINGS;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;

@@ -8,13 +8,13 @@ import java.time.LocalTime;
 import java.util.List;
 
 import static com.google.common.collect.ImmutableList.of;
-import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
-import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_2;
+import static isr.ek0.bookingapi.testutils.UserData.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.UserData.ADMIN_2;
 import static java.lang.Double.compare;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
-public class RestaurantUtil {
+public class RestaurantData {
     public static final Meal A_1_R_1_MEAL_1 = new Meal("Sushi", 30, 5.0);
     public static final Meal A_1_R_1_MEAL_2 = new Meal("Borsch", 40, 7.0);
     public static final Meal A_1_R_1_MEAL_3 = new Meal("Steak", 35, 8.0);
@@ -59,4 +59,9 @@ public class RestaurantUtil {
     public static final Meal NEW_MEAL_NOT_VALID = new Meal(null, 10, 10.0);
     public static final List<Meal> MEALS_WITH_1_NEW = of(A_1_R_1_MEAL_1, A_1_R_1_MEAL_2, A_1_R_1_MEAL_3, NEW_MEAL_1);
     public static final List<Meal> MEALS_WITH_2_NEW = of(A_1_R_1_MEAL_1, A_1_R_1_MEAL_2, A_1_R_1_MEAL_3, NEW_MEAL_1, NEW_MEAL_2);
+
+    public static final String restaurantJson = "{\"name\":\"Fine Eat\",\"location\":{\"x\":\"10.0\",\"y\":\"-40.0\"},\"menu\":[{\"description\":\"Porridge\",\"preparingTime\":30,\"price\":10.0},{\"description\":\"Soup\",\"preparingTime\":45,\"price\":15.0},{\"description\":\"Grecha\",\"preparingTime\":15,\"price\":20.0}],\"openTime\":\"06:00\",\"closeTime\":\"22:00\"}";
+    public static final String restaurantJsonNotValid = "{\"location\":{\"x\":\"10.0\",\"y\":\"-40.0\"},\"menu\":[{\"description\":\"Porridge\",\"preparingTime\":30,\"price\":10.0},{\"description\":\"Soup\",\"preparingTime\":45,\"price\":15.0},{\"description\":\"Grecha\",\"preparingTime\":15,\"price\":20.0}],\"openTime\":\"06:00\",\"closeTime\":\"22:00\"}";
+    public static final String newMeal = "{\"description\":\"Salad\",\"preparingTime\":\"10\",\"price\":\"10.0\"}";
+    public static final String newMealNotValid = "{\"preparingTime\":\"10\",\"price\":\"10.0\"}";
 }

@@ -4,7 +4,7 @@ import java.util.List;
 
 import static com.google.common.collect.ImmutableList.of;
 import static com.google.common.primitives.Doubles.tryParse;
-import static isr.ek0.bookingapi.util.exception.ExceptionUtil.parseAndValidateCoordinates;
+import static isr.ek0.bookingapi.util.exception.ValidationUtil.parseAndValidateCoordinates;
 
 public class GeoUtil {
     public static List<Double> parseCoordinates(String longitude, String latitude) {

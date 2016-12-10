@@ -6,7 +6,7 @@ import isr.ek0.bookingapi.web.BaseControllerTest;
 import org.junit.Test;
 import org.springframework.http.ResponseEntity;
 
-import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
+import static isr.ek0.bookingapi.testutils.RestaurantData.*;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpStatus.OK;

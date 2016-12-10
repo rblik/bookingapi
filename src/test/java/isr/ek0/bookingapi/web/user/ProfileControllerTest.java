@@ -9,10 +9,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
-import static isr.ek0.bookingapi.testutils.JsonUtil.userJson;
-import static isr.ek0.bookingapi.testutils.JsonUtil.userJsonNotValid;
-import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
-import static isr.ek0.bookingapi.testutils.UsersUtil.NEW_USER;
+import static isr.ek0.bookingapi.testutils.UserData.userJson;
+import static isr.ek0.bookingapi.testutils.UserData.userJsonNotValid;
+import static isr.ek0.bookingapi.testutils.UserData.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.UserData.NEW_USER;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.*;

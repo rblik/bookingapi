@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static isr.ek0.bookingapi.testutils.TestUtil.repopulateDB;
+import static isr.ek0.bookingapi.testutils.PopulateUtil.repopulateDB;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @SuppressWarnings("SpringJavaAutowiredMembersInspection")

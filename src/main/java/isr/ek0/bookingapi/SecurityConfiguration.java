@@ -21,25 +21,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserServiceImpl userService;
 
-    @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
     @Autowired
     public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authProvider());
+        auth.userDetailsService(userService).passwordEncoder(getPasswordEncoder());
 
         /*inMemoryAuthentication().withUser("user").password("password").roles("USER").and()
         .withUser("admin").password("admin").roles("ADMIN");*/
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return getPasswordEncoder();
     }
 
     @Override

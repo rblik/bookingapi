@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
-import static isr.ek0.bookingapi.util.exception.ExceptionUtil.validateBooking;
+import static isr.ek0.bookingapi.util.exception.ValidationUtil.checkNotFound;
+import static isr.ek0.bookingapi.util.exception.ValidationUtil.validateBooking;
 import static java.time.LocalDate.now;
 import static org.springframework.util.Assert.notNull;
 

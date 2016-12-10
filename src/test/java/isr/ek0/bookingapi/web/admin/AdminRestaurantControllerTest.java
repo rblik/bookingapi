@@ -8,9 +8,9 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
 import static com.google.common.collect.ImmutableList.of;
-import static isr.ek0.bookingapi.testutils.JsonUtil.restaurantJson;
-import static isr.ek0.bookingapi.testutils.JsonUtil.restaurantJsonNotValid;
-import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
+import static isr.ek0.bookingapi.testutils.RestaurantData.restaurantJson;
+import static isr.ek0.bookingapi.testutils.RestaurantData.restaurantJsonNotValid;
+import static isr.ek0.bookingapi.testutils.RestaurantData.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;

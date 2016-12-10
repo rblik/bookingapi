@@ -7,9 +7,7 @@ import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
-import static isr.ek0.bookingapi.testutils.BookingUtil.BOOKING_1;
-import static isr.ek0.bookingapi.testutils.BookingUtil.NEW_BOOKING_SAVED;
-import static isr.ek0.bookingapi.testutils.JsonUtil.*;
+import static isr.ek0.bookingapi.testutils.BookingData.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.singletonList;
@@ -59,7 +57,7 @@ public class BookingControllerTest extends BaseControllerTest {
 
     @Test
     public void testDelete() {
-        ResponseEntity<Void> responseEntity = restTemplate.exchange("/bookings?date=2016-12-08", DELETE, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("/bookings?date=2016-12-28", DELETE, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
         assertEquals(OK, responseEntity.getStatusCode());
     }
 }

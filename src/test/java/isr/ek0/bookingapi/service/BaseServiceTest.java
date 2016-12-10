@@ -10,7 +10,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static isr.ek0.bookingapi.testutils.TestUtil.repopulateDB;
+import static isr.ek0.bookingapi.testutils.PopulateUtil.repopulateDB;
 
 @RunWith(SpringRunner.class)
 @SpringApplicationConfiguration({Application.class})

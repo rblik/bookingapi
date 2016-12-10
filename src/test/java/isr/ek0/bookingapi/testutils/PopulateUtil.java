@@ -5,13 +5,13 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.GeospatialIndex;
 import org.springframework.data.mongodb.core.index.Index;
 
-import static isr.ek0.bookingapi.testutils.BookingUtil.BOOKINGS;
-import static isr.ek0.bookingapi.testutils.RestaurantUtil.RESTAURANTS;
-import static isr.ek0.bookingapi.testutils.UsersUtil.USERS;
+import static isr.ek0.bookingapi.testutils.BookingData.BOOKINGS;
+import static isr.ek0.bookingapi.testutils.RestaurantData.RESTAURANTS;
+import static isr.ek0.bookingapi.testutils.UserData.USERS;
 import static org.springframework.data.domain.Sort.Direction.ASC;
 import static org.springframework.data.mongodb.core.index.GeoSpatialIndexType.GEO_2DSPHERE;
 
-public class TestUtil {
+public class PopulateUtil {
 
     public static void repopulateDB(MongoTemplate template) {
         template.dropCollection("users");

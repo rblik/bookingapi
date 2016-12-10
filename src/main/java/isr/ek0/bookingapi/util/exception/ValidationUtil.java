@@ -11,8 +11,8 @@ import java.util.List;
 import static java.time.LocalDateTime.now;
 import static java.util.stream.Collectors.toList;
 
-public class ExceptionUtil {
-    public ExceptionUtil() {
+public class ValidationUtil {
+    public ValidationUtil() {
     }
 
     public static Booking validateBooking(Booking booking, Restaurant restaurant) {

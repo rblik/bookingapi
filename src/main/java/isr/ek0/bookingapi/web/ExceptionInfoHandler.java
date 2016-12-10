@@ -4,6 +4,7 @@ import isr.ek0.bookingapi.util.exception.ErrorInfo;
 import isr.ek0.bookingapi.util.exception.NotFoundException;
 import isr.ek0.bookingapi.util.exception.WrongBookingException;
 import isr.ek0.bookingapi.util.exception.WrongCoordinatesException;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.Ordered;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
+@Slf4j
 @ControllerAdvice(annotations = RestController.class)
 public class ExceptionInfoHandler {
 
@@ -75,15 +77,15 @@ public class ExceptionInfoHandler {
         String[] details = result.getFieldErrors().stream()
                 .map(fe -> fe.getField() + ' ' + fe.getDefaultMessage()).toArray(String[]::new);
 
-        LOGGER.warn("Validation exception at request " + req.getRequestURL() + ": " + Arrays.toString(details));
+        log.warn("Validation exception at request " + req.getRequestURL() + ": " + Arrays.toString(details));
         return new ErrorInfo(req.getRequestURL(), "ValidationException", details);
     }
 
     private ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException) {
         if (logException) {
-            LOGGER.error("Exception at request " + req.getRequestURL(), e);
+            log.error("Exception at request " + req.getRequestURL(), e);
         } else {
-            LOGGER.warn("Exception at request " + req.getRequestURL() + ": " + e.toString());
+            log.warn("Exception at request " + req.getRequestURL() + ": " + e.toString());
         }
         return new ErrorInfo(req.getRequestURL(), e);
     }

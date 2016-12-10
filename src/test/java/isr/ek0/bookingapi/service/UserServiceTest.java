@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import javax.validation.ConstraintViolationException;
 
-import static isr.ek0.bookingapi.testutils.UsersUtil.*;
+import static isr.ek0.bookingapi.testutils.UserData.*;
 import static org.junit.Assert.*;
 
 public class UserServiceTest extends BaseServiceTest{

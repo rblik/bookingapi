@@ -8,11 +8,11 @@ import org.junit.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-import static isr.ek0.bookingapi.testutils.BookingUtil.*;
-import static isr.ek0.bookingapi.testutils.RestaurantUtil.ADMIN1_RESTAURANT1;
-import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_1;
-import static isr.ek0.bookingapi.testutils.UsersUtil.ADMIN_2;
-import static isr.ek0.bookingapi.testutils.UsersUtil.USER_1;
+import static isr.ek0.bookingapi.testutils.BookingData.*;
+import static isr.ek0.bookingapi.testutils.RestaurantData.ADMIN1_RESTAURANT1;
+import static isr.ek0.bookingapi.testutils.UserData.ADMIN_1;
+import static isr.ek0.bookingapi.testutils.UserData.ADMIN_2;
+import static isr.ek0.bookingapi.testutils.UserData.USER_1;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;

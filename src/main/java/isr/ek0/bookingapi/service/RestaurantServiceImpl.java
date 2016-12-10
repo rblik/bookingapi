@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static isr.ek0.bookingapi.util.exception.ExceptionUtil.checkNotFound;
+import static isr.ek0.bookingapi.util.exception.ValidationUtil.checkNotFound;
 import static isr.ek0.bookingapi.util.geo.GeoUtil.parseCoordinates;
 import static isr.ek0.bookingapi.util.geo.GeoUtil.parseDistance;
 import static org.springframework.util.Assert.notNull;

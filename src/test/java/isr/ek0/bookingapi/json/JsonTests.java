@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static isr.ek0.bookingapi.testutils.JsonUtil.bookingJson;
-import static isr.ek0.bookingapi.testutils.JsonUtil.restaurantJson;
-import static isr.ek0.bookingapi.testutils.JsonUtil.userJson;
+import static isr.ek0.bookingapi.testutils.BookingData.bookingJson;
+import static isr.ek0.bookingapi.testutils.RestaurantData.restaurantJson;
+import static isr.ek0.bookingapi.testutils.UserData.userJson;
 import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
 public class JsonTests {

@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 
-import static isr.ek0.bookingapi.testutils.JsonUtil.newMeal;
-import static isr.ek0.bookingapi.testutils.JsonUtil.newMealNotValid;
-import static isr.ek0.bookingapi.testutils.RestaurantUtil.*;
+import static isr.ek0.bookingapi.testutils.RestaurantData.newMeal;
+import static isr.ek0.bookingapi.testutils.RestaurantData.newMealNotValid;
+import static isr.ek0.bookingapi.testutils.RestaurantData.*;
 import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.DELETE;
