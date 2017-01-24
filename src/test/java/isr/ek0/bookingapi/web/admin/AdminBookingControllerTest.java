@@ -18,7 +18,7 @@ public class AdminBookingControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetByRestaurantsName() {
-        ResponseEntity<Booking[]> bookingsEntity = restTemplate.exchange("/admin/restaurants/the_table/bookings?date=2016-12-28", GET, new HttpEntity<String>(setBasicAuth("admin@gmail.com", "admin")), Booking[].class, emptyMap());
+        ResponseEntity<Booking[]> bookingsEntity = restTemplate.exchange("/admin/restaurants/the_table/bookings?date=2017-12-28", GET, new HttpEntity<String>(setBasicAuth("admin@gmail.com", "admin")), Booking[].class, emptyMap());
         LOGGER.debug(bookingsEntity.toString());
         assertEquals(OK, bookingsEntity.getStatusCode());
         assertEquals(BOOKINGS, asList(bookingsEntity.getBody()));
@@ -26,7 +26,7 @@ public class AdminBookingControllerTest extends BaseControllerTest {
 
     @Test
     public void testGetByRestaurantsNameForbidden() {
-        ResponseEntity<Void> bookingsEntity = restTemplate.exchange("/admin/restaurants/the_table/bookings?date=2016-12-28", GET, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
+        ResponseEntity<Void> bookingsEntity = restTemplate.exchange("/admin/restaurants/the_table/bookings?date=2017-12-28", GET, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
         assertEquals(FORBIDDEN, bookingsEntity.getStatusCode());
     }
 }

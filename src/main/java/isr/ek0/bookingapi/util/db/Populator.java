@@ -57,8 +57,8 @@ public class Populator {
                 new User("user@yandex.ru", "User1", "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", singletonList(ROLE_USER)),
                 new User("user@fun.com", "User2", "$2a$10$Sh0ZD2NFrzRRJJEKEWn8l.92ROEuzlVyzB9SV1AM8fdluPR0aC1ni", singletonList(ROLE_USER))));
         template.insertAll(of(
-                new Booking("user@yandex.ru", LocalDate.of(2016, 12, 28), LocalTime.of(18, 0), "the_table"),
-                new Booking("user@fun.com", LocalDate.of(2016, 12, 28), LocalTime.of(20, 0), "the_table")));
+                new Booking("user@yandex.ru", LocalDate.of(2017, 12, 28), LocalTime.of(18, 0), "the_table"),
+                new Booking("user@fun.com", LocalDate.of(2017, 12, 28), LocalTime.of(20, 0), "the_table")));
 //        recreate index after drop
         template.indexOps(Restaurant.class).ensureIndex(new GeospatialIndex("location").typed(GEO_2DSPHERE));
         template.indexOps(Restaurant.class).ensureIndex(new Index("ownerEmail", ASC));

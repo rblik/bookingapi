@@ -15,7 +15,7 @@ import static isr.ek0.bookingapi.web.webutil.JsonUtil.getMapper;
 
 @SpringBootApplication
 @EnableCaching
-@Import({SecurityConfiguration.class, PersistenceConfig.class})
+@Import({SecurityConfiguration.class, CorsConfiguration.class,PersistenceConfig.class})
 public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);

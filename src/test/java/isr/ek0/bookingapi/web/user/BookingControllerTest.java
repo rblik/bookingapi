@@ -57,7 +57,7 @@ public class BookingControllerTest extends BaseControllerTest {
 
     @Test
     public void testDelete() {
-        ResponseEntity<Void> responseEntity = restTemplate.exchange("/bookings?date=2016-12-28", DELETE, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
+        ResponseEntity<Void> responseEntity = restTemplate.exchange("/bookings?date=2017-12-28", DELETE, new HttpEntity<String>(setBasicAuth("user@yandex.ru", "password")), Void.class, emptyMap());
         assertEquals(OK, responseEntity.getStatusCode());
     }
 }
