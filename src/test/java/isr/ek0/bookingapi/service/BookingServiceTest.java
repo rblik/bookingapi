@@ -61,19 +61,19 @@ public class BookingServiceTest extends BaseServiceTest {
 
     @Test
     public void testGetAllByRestaurantName() {
-        List<Booking> all = bookingService.getAllByRestaurantName(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), LocalDate.of(2016, 12, 28));
+        List<Booking> all = bookingService.getAllByRestaurantName(ADMIN_1.getEmail(), ADMIN1_RESTAURANT1.getName(), LocalDate.of(2017, 12, 28));
         assertEquals(BOOKINGS, all);
     }
 
     @Test(expected = NotFoundException.class)
     public void testGetAllByWrongRestaurantName() {
-        List<Booking> all = bookingService.getAllByRestaurantName(ADMIN_2.getEmail(), ADMIN1_RESTAURANT1.getName(), LocalDate.of(2016, 12, 28));
+        List<Booking> all = bookingService.getAllByRestaurantName(ADMIN_2.getEmail(), ADMIN1_RESTAURANT1.getName(), LocalDate.of(2017, 12, 28));
         assertEquals(BOOKINGS, all);
     }
 
     @Test
     public void testDelete() {
-        bookingService.delete(USER_1.getEmail(), LocalDate.of(2016, 12, 28));
+        bookingService.delete(USER_1.getEmail(), LocalDate.of(2017, 12, 28));
         assertEquals(emptyList(), bookingService.getAll(USER_1.getEmail()));
     }
 
