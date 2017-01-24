@@ -1,6 +1,5 @@
 package isr.ek0.bookingapi.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,7 +32,7 @@ public class User extends ResourceSupport {
     @NotEmpty
     @JsonProperty(access = WRITE_ONLY)
     private String password;
-//    @JsonIgnore
+//    @JsonIgnore for angular
     private List<Role> roles = singletonList(ROLE_USER);
 
     public User(String email, String name, String password) {
