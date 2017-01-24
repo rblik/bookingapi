@@ -33,7 +33,7 @@ public class User extends ResourceSupport {
     @NotEmpty
     @JsonProperty(access = WRITE_ONLY)
     private String password;
-    @JsonIgnore
+//    @JsonIgnore
     private List<Role> roles = singletonList(ROLE_USER);
 
     public User(String email, String name, String password) {
