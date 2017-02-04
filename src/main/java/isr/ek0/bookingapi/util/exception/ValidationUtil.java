@@ -32,6 +32,9 @@ public class ValidationUtil {
         if (date == null) {
             throw new WrongBookingException("booking date must not be null");
         }
+        if (date.isAfter(LocalDate.now().plusYears(1))) {
+            throw new WrongBookingException("too early for that kind of date");
+        }
         return booking;
     }
 
